@@ -1,6 +1,6 @@
 {
   "rewrites": [
-    { "source": "/api/(.*)", "destination": "/server/api/projects.js" },  
+    { "source": "/api/(.*)", "destination": "/server/projects.js" },  
     { "source": "/(.*)", "destination": "/client/public/index.html" } 
   ],
   "builds": [

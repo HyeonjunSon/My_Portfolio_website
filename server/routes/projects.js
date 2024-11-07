@@ -1,13 +1,17 @@
 // server/routes/projects.js
 const express = require('express');
-const projectsRoute = require('../routes/projects'); // 상대 경로 주의
-require('dotenv').config();
+const router = express.Router();
+const pool = require('../db/db'); // 데이터베이스 연결
 
-const app = express();
-app.use(express.json());
+// 프로젝트 목록을 가져오는 API 엔드포인트
+router.get('/', async (req, res) => {
+  try {
+    const [rows] = await pool.query('SELECT * FROM projects');
+    res.json(rows);
+  } catch (err) {
+    console.error(err.message);
+    res.status(500).send('Server Error');
+  }
+});
 
-// "/routes/projects" 경로로 들어오는 요청 처리
-app.use('/routes/projects', projectsRoute);
-
-// Vercel의 서버리스 함수로 내보내기
-module.exports = app;
+module.exports = router;
