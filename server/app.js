@@ -7,7 +7,7 @@ require('dotenv').config();
 const app = express();
 
 // API Route 설정
-app.use('/api/projects', projectsRoute);
+app.use('/routes/projects', projectsRoute);
 
 // 프론트엔드 빌드 파일 제공
 app.use(express.static(path.join(__dirname, '../../client/build')));
