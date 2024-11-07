@@ -1,15 +1,13 @@
+// server/api/projects.js
 const express = require('express');
-const router = express.Router();
-const pool = require('../db/db');
+const projectsRoute = require('../routes/projects'); // 상대 경로 주의
+require('dotenv').config();
 
-router.get('/', async (req, res) => {
-  try {
-    const [rows] = await pool.query('SELECT * FROM projects'); 
-    res.json(rows);
-  } catch (err) {
-    console.error(err.message);
-    res.status(500).send('Server Error');
-  }
-});
+const app = express();
+app.use(express.json());
 
-module.exports = router;
+// "/api/projects" 경로로 들어오는 요청 처리
+app.use('/api/projects', projectsRoute);
+
+// Vercel의 서버리스 함수로 내보내기
+module.exports = app;
