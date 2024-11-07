@@ -1,10 +1,10 @@
 {
   "rewrites": [
-    { "source": "/api/(.*)", "destination": "/server/projects.js" },  
+    { "source": "/api/(.*)", "destination": "/server/app.js" },  
     { "source": "/(.*)", "destination": "/client/public/index.html" } 
   ],
   "builds": [
-    { "src": "server/routes/projects.js", "use": "@vercel/node" },
+    { "src": "server/app.js", "use": "@vercel/node" },
     { "src": "client/package.json", "use": "@vercel/static-build", "config": { "distDir": "client/build" } }
   ]
 }

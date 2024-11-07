@@ -1,14 +1,22 @@
 // server/app.js
 const express = require('express');
 const path = require('path');
-const projectsRoute = require('./routes/projects'); // 프로젝트 라우트 불러오기
+const pool = require('./db/db'); // 데이터베이스 연결
 require('dotenv').config();
 
 const app = express();
 app.use(express.json());
 
-// API Route 설정
-app.use('/api/projects', projectsRoute);
+// 프로젝트 API 엔드포인트 설정
+app.get('/api/projects', async (req, res) => {
+  try {
+    const [rows] = await pool.query('SELECT * FROM projects');
+    res.json(rows);
+  } catch (err) {
+    console.error(err.message);
+    res.status(500).send('Server Error');
+  }
+});
 
 // 정적 파일 제공 (React 클라이언트 빌드 폴더)
 app.use(express.static(path.join(__dirname, '../client/build')));
