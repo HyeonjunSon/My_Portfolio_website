@@ -1,4 +1,4 @@
-// src/pages/Projects.js
+// client/src/pages/Projects.js
 import React, { useEffect, useState } from 'react';
 
 function Projects() {
