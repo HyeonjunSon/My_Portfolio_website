@@ -5,9 +5,10 @@ function Contact() {
   return (
     <div>
       <h2>Contact Me</h2>
-      <p>Email: yourname@example.com</p>
-      <a href="https://github.com/[YourGitHubUsername]">GitHub</a>
-      <a href="https://linkedin.com/in/[YourLinkedInUsername]">LinkedIn</a>
+      <p>Email: hson15@example.com</p>
+      <a href="https://github.com/HyeonjunSon">GitHub</a>
+      <br></br>
+      <a href="https://www.linkedin.com/in/hyeonjun-son/">LinkedIn</a>
     </div>
   );
 }

@@ -5,7 +5,7 @@ function Home() {
   return (
     <div>
       <h1>Welcome to My Portfolio</h1>
-      <p>Hello, I’m [Your Name], an aspiring developer skilled in React, Node.js, and SQL.</p>
+      <p>Hello, I’m HyeonjunSon, an aspiring developer skilled in React, Node.js, and SQL.</p>
     </div>
   );
 }
