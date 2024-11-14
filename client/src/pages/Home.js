@@ -30,7 +30,7 @@ function Home() {
     <div className="home">
       <div className="hero-content">
         <h1>Welcome to Hyeonjun's Portfolio</h1>
-        <p>I build My web applications with React and Node.js</p>
+        <p>I build My web applications with React and Node</p>
       </div>
 
       <div className="carousel-container">
