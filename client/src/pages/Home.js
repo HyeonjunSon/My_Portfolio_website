@@ -28,21 +28,23 @@ function Home() {
 
   return (
     <div className="home">
-      <div className="hero-content">
-        <h1>Welcome to Hyeonjun's Portfolio</h1>
-        <p>I build My web applications with React and Node</p>
-      </div>
-
-      <div className="carousel-container">
-        <div className="carousel">
-          <div className="carousel-item">
-            <img src={images[currentIndex]} alt={`Slide ${currentIndex}`} />
-          </div>
-        </div>
-        <button className="prev" onClick={() => moveSlide('prev')}>&#10094;</button>
-        <button className="next" onClick={() => moveSlide('next')}>&#10095;</button>
-      </div>
+    <div className="hero-content">
+      <h1>Welcome to Hyeonjun's Portfolio</h1>
     </div>
+  
+    {/* Label outside and above the carousel */}
+    <h2 className="carousel-label">Project</h2>
+  
+    <div className="carousel-container"> 
+      <div className="carousel">
+        <div className="carousel-item">
+          <img src={images[currentIndex]} alt={`Slide ${currentIndex}`} />
+        </div>
+      </div>
+      <button className="prev" onClick={() => moveSlide('prev')}>&#10094;</button>
+      <button className="next" onClick={() => moveSlide('next')}>&#10095;</button>
+    </div>
+  </div>
   );
 }
 
