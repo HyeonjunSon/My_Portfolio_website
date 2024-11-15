@@ -6,8 +6,6 @@ function Resume() {
   return (
     <div className="resume" style={{ textAlign: 'center' }}>
       <h1>My Resume</h1>
-      <p>[간단한 이력 소개]</p>
-
       {/* Styled Download Button */}
       <a 
         href="/resume.pdf" 
