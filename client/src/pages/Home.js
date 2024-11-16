@@ -45,6 +45,7 @@ function Home() {
       <button className="next" onClick={() => moveSlide('next')}>&#10095;</button>
     </div>
   </div>
+  
   );
 }
 

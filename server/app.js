@@ -32,9 +32,11 @@ app.get('*', (req, res) => {
 
 // 서버 시작 코드 추가
 const PORT = process.env.PORT || 3600;
-app.listen(PORT, () => {
-  console.log(`Server running on port ${PORT}`);
-});
+if (process.env.NODE_ENV !== 'vercel') {
+  app.listen(PORT, () => {
+    console.log(`Server running on port ${PORT}`);
+  });
+}
 
 // Vercel 서버리스 함수로 내보내기
 module.exports = app;
