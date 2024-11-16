@@ -5,16 +5,16 @@ import '../App.css'; // CSS 파일을 import합니다.
 function Projects() {
   const projectData = [
     {
-      title: "Project 1",
+      title: "To_do_list",
       description: "This is a description for Project 1.",
       image: "image1.jpg",
-      githubLink: "https://github.com/yourusername/project1",
+      githubLink: "https://github.com/HyeonjunSon/Side_Projects/tree/main/To_do_list",
     },
     {
-      title: "Project 2",
+      title: "Timer",
       description: "This is a description for Project 2.",
       image: "image2.jpg",
-      githubLink: "https://github.com/yourusername/project2",
+      githubLink: "https://github.com/HyeonjunSon/Side_Projects/tree/main/Timer",
     },
     {
       title: "Calculator",
