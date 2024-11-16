@@ -17,10 +17,10 @@ function Projects() {
       githubLink: "https://github.com/yourusername/project2",
     },
     {
-      title: "Project 3",
+      title: "Calculator",
       description: "This is a description for Project 3.",
       image: "image3.jpg",
-      githubLink: "https://github.com/yourusername/project3",
+      githubLink: "https://github.com/HyeonjunSon/Side_Projects/tree/main/Calculator",
     },
   ];
 
