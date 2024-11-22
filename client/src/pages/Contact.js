@@ -12,7 +12,7 @@ function Contact() {
       <div className="contact-info">
         <p>
           <strong>Email:</strong>{' '}
-          <a href="mailto:hson15@example.com">hson15@example.com</a>
+          <a href="mailto:hson15@example.com">hson15@myseneca.ca</a>
         </p>
         <p>
           <strong>GitHub:</strong>{' '}
