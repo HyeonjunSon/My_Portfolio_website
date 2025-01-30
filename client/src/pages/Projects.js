@@ -24,7 +24,7 @@ function Projects() {
     },
     {
       title: "Board Website",
-      description: "my first personal project. CRUD and login website",
+      description: "CRUD and login website",
       image: "image4.jpg",
       githubLink: "https://github.com/HyeonjunSon/Board_project_front",
     }
