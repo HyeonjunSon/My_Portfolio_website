@@ -156,6 +156,7 @@ nav ul li a:hover {
   bottom: 20px; /* 컨테이너 하단에서 간격 */
   left: 50%; /* 컨테이너 가운데 정렬 */
   transform: translateX(-50%); /* 가운데 정렬 유지 */
+  height: 40px;
 }
 
 
