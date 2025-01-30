@@ -8,7 +8,7 @@ function Resume() {
       <h1>My Resume</h1>
       {/* Styled Download Button */}
       <a 
-        href="/resume.pdf" 
+        href="/resume_hyeonjunSon.pdf" 
         download 
         style={{
           marginBottom: '20px',
@@ -44,7 +44,7 @@ function Resume() {
         margin: '20px auto', 
       }}>
         <Worker workerUrl={`https://unpkg.com/pdfjs-dist@3.11.174/build/pdf.worker.min.js`}>
-          <Viewer fileUrl="/resume.pdf" />
+          <Viewer fileUrl="/resume_hyeonjunSon.pdf" />
         </Worker>
       </div>
     </div>
