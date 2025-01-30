@@ -22,6 +22,13 @@ function Projects() {
       image: "image3.jpg",
       githubLink: "https://github.com/HyeonjunSon/Side_Projects/tree/main/Calculator",
     },
+    {
+      title: "CRUD board Website",
+      description: "my first personal project. CRUD and login website",
+      image: "image4.jpg",
+      githubLink_Front: "https://github.com/HyeonjunSon/Board_project_front",
+      githubLink_Back: "https://github.com/HyeonjunSon/Board_project_back",
+    }
   ];
 
   return (
