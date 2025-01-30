@@ -7,6 +7,7 @@ function Home() {
     'image1.jpg', // 이미지 경로를 실제 경로로 교체
     'image2.jpg',
     'image3.jpg',
+    'image4.jpg'
   ];
 
   // 다음 슬라이드로 이동
