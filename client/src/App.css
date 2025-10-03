@@ -1,380 +1,183 @@
-/* Global Styles */
-
-body {
-  font-family: 'Poppins', sans-serif;
-  display: flex;
-  flex-direction: column;
-  min-height: 100vh; /* 전체 화면 높이 */
-  margin: 0;
-  padding: 0;
-  line-height: 1.6;
-  background-color: whitesmoke;
-  flex-direction: column; /* Flexbox로 위에서 아래로 정렬 */
-  
+/* ---------- Base ---------- */
+:root{
+  --radius: 16px;
+  --shadow: 0 10px 30px rgba(0,0,0,.12);
+  --border: 1px solid rgba(0,0,0,.08);
+  --text: #0f172a;
+  --muted: #475569;
+  --brand: #3b82f6;
 }
 
-#root {
-  display: flex;
-  flex-direction: column;
-  flex-grow: 1; /* 페이지를 화면 높이로 확장 */
-}
+*{ box-sizing: border-box; }
+img{ max-width: 100%; display: block; }
+.main-content{ display:flex; justify-content:center; }
+.home{ width:min(1100px, 92vw); margin: 0 auto 72px; }
 
-a {
-  text-decoration: none;
-  color: inherit;
-}
-
-/* Navbar Styles */
-nav {
-  background-color: #1e2a38;
-  padding: 20px;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-}
-
-nav ul {
-  list-style: none;
-  padding: 0;
-  display: flex;
-  justify-content: center;
-  margin: 0;
-}
-
-nav ul li {
-  display: inline;
-}
-
-nav ul li a {
-  color: white;
-  padding: 12px 20px;
-  border-radius: 5px;
-  font-size: 1.1em;
-  font-weight: 500;
-  transition: background-color 0.3s ease;
-}
-
-nav ul li a:hover {
-  background-color: #3498db;
-}
-
-/* Hero Section (Home) */
-.home {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  height: 100vh;
-  background: whitesmoke;
-  color: black;
-  text-align: center;
-}
-
-.home h1 {
-  font-size: 3.2em;
-  margin-bottom: 20px;
-  font-weight: 600;
-}
-
-.home p {
-  font-size: 1.6em;
-  margin-bottom: 30px;
-  line-height: 1.5;
-}
-
-/* Centered Carousel Label Positioned Above */
-.carousel-label {
-  font-size: 2em;
-  font-weight: bold;
-  color: black;
-  text-align: center;
-  margin-bottom: 10px;
-}
-
-/* Container styling for all projects */
-.projects {
-  padding: 20px;
-  text-align: center;
-}
-
-/* Grid styling for project cards */
-.projects-container {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 20px;
-  justify-content: center;
-  padding-bottom: 100px;
-  align-items: flex-start; /* 카드 내부 요소의 상단 정렬 */
-}
-
-/* Project card styling */
-.project-card {
-  width: 370px;
-  height: 500px;
-  background-color: #fff;
-  padding: 20px;
-  border-radius: 10px;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  box-sizing: border-box;
-  justify-content: space-between;
-  position: relative; /* 위치 설정 */
-}
-
-/* Image styling */
-.project-image {
-  width: 100%;
-  height: 70%;
-  border-radius: 8px;
-}
-
-/* Title styling */
-.project-title {
-  font-size: 25px;
-  font-weight: bold;
-  color: #333;
-  margin-top: 10px;
-}
-
-/* Description styling */
-.project-description {
-  font-size: 16px;
-  color: #666;
-  text-align: center;
-  margin-top: 20px; /* 간격 조정 */
-  margin-bottom: 20px; /* 간격 조정 */
-}
-
-/* Button styling */
-.github-button {
-  padding: 10px 20px;
-  background-color: #333;
-  color: #fff;
-  border: none;
-  border-radius: 5px;
-  font-size: 14px;
-  cursor: pointer;
-  position: absolute; /* 위치를 고정 */
-  bottom: 13% !important; /* 컨테이너 하단에서 간격 */
-  left: 50%; /* 컨테이너 가운데 정렬 */
-  transform: translateX(-50%); /* 가운데 정렬 유지 */
-  height: 40px;
-  margin-top: auto; /* 하단으로 밀기 */
-}
-
-
-/* Resume Section */
-.resume {
-  text-align: center;
-  padding: 60px 20px;
-  background-color: #f5f5f5;
-}
-
-.resume button {
-  padding: 12px 24px;
-  background-color: #1e2a38;
-  color: white;
-  border: none;
-  border-radius: 5px;
-  cursor: pointer;
-  transition: background-color 0.3s ease;
-}
-
-.resume button:hover {
-  background-color: #3498db;
-}
-
-/* Contact Section */
-/* Contact Container */
-.contact-container {
-  max-width: 800px;
-  margin: 50px auto;
-  padding: 20px;
-  text-align: center;
-  background: #2c5364; /* 그라데이션 배경 */
-  color: #fff;
-  border-radius: 10px; /* 둥근 모서리 */
-    transition: transform 0.3s ease; /* 애니메이션 */
-}
-
-.contact-container:hover {
-  transform: scale(1.02); /* 마우스 오버 시 확대 효과 */
-}
-
-/* Title */
-.contact-title {
-  font-size: 2.5rem;
-  font-weight: bold;
-  margin-bottom: 20px;
-}
-
-/* Description */
-.contact-description {
-  font-size: 1.2rem;
-  line-height: 1.6;
-  margin-bottom: 30px;
-  color: #d1d1d1;
-}
-
-/* Contact Info */
-.contact-info {
-  font-size: 1.1rem;
-  line-height: 2;
-}
-
-.contact-info p {
-  margin: 10px 0;
-}
-
-/* Links */
-.contact-info a {
-  color: #3498db;
-  text-decoration: none;
-  font-weight: bold;
-  transition: color 0.3s ease;
-}
-
-.contact-info a:hover {
-  color: #76d6ff;
-  text-decoration: underline;
-}
-
-/* Footer Styles */
-/* Footer Styles */
-footer {
-  background-color: #1e2a38;
-  color: white;
-  text-align: center;
-  padding: 20px 0;
-  font-size: 0.9em;
-  width: 100%;
-  margin-top: 50px; /* 위의 콘텐츠와 간격 추가 */
-  bottom: 0; /* 화면 하단에 고정 */
-  left: 0; /* 화면 왼쪽에 고정 */
-  position: relative; /* 콘텐츠 길이에 따라 자연스럽게 맨 아래로 이동 */
-
-}
-
-.main-content {
-  padding-bottom: 60px; /* Footer 높이만큼 여백 추가 (20px padding + 40px 여유 공간) */
-}
-
-/* Smooth Scrolling */
-html {
-  scroll-behavior: smooth;
-}
-
-/* Responsive Design for Mobile */
-@media (max-width: 768px) {
-  .home h1 {
-    font-size: 2.5em;
-  }
-
-  .home p {
-    font-size: 1.4em;
-  }
-
-  .project-card h3 {
-    font-size: 1.4em;
-  }
-
-  .hero-button {
-    font-size: 1.1em;
-  }
-}
-
-/* Home */
-.home {
-  text-align: center;
-}
-
-.hero-content {
-  margin: 20px;
-}
-
-/* Home Container */
-.home {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  width: 100%;
-  padding-top: 50px;
-}
-
-/* Hero Content */
-.hero-content {
-  width: 100%;
-  max-width: 800px;
-  text-align: left;
-  margin-bottom: 20px;
-}
-/* Centered Carousel Wrapper */
-.carousel-wrapper {
-  display: flex;
-  flex-direction: column; /* 수직 정렬 */
-  justify-content: center; /* 세로 가운데 정렬 */
-  align-items: center; /* 가로 가운데 정렬 */
-  width: 100%;
-  max-width: 1200px;
-  padding: 0;
-  margin: 0 auto; /* 좌우 가운데 정렬 */
-}
-
-/* Carousel Container with Larger Dimensions */
-/* Carousel Container */
-/* 큰 상자 박스 */
-.carousel-container {
+/* ---------- Hero ---------- */
+.hero{
   position: relative;
-  width: 800px; /* 고정된 너비 */
-  height: 600px; /* 고정된 높이 */
-  margin: 0 auto; /* 화면 가운데 정렬 */
-  background-color: whitesmoke; /* 배경색 */
-  border-radius: 10px; /* 선택 사항: 둥근 모서리 */
-  overflow: hidden; /* 박스를 넘어가는 이미지 숨김 */
-  display: flex;
-  justify-content: center;
-  align-items: center;
+  margin: 48px 0 28px;
+  border-radius: calc(var(--radius) * 1.5);
+  overflow: hidden;
+  background: radial-gradient(1200px 400px at 20% 0%, #dbeafe, transparent 60%),
+              radial-gradient(1000px 380px at 95% 10%, #ffe4e6, transparent 60%),
+              linear-gradient(180deg, #f8fafc, #ffffff);
+  border: var(--border);
+  box-shadow: var(--shadow);
+  isolation:isolate;
+}
+.hero-inner{
+  padding: clamp(32px, 6vw, 72px);
+  position: relative;
+  z-index: 2;
+}
+.eyebrow{
+  letter-spacing:.08em;
+  font-weight:600;
+  color: var(--muted);
+  margin: 0 0 6px;
+  text-transform: uppercase;
+  font-size: .85rem;
+}
+.hero-title{
+  margin: 0 0 10px;
+  font-size: clamp(28px, 4.2vw, 54px);
+  line-height: 1.05;
+  color: var(--text);
+}
+.hero-sub{
+  color:#334155;
+  max-width: 60ch;
+  margin: 0 0 20px;
+  font-size: clamp(14px, 1.8vw, 18px);
+}
+.hero-cta{
+  display:inline-block;
+  background: var(--brand);
+  color: #fff;
+  padding: 12px 18px;
+  border-radius: 999px;
+  text-decoration: none;
+  font-weight: 600;
+  box-shadow: 0 6px 16px rgba(59,130,246,.35);
+  transition: transform .15s ease, box-shadow .15s ease, opacity .2s ease;
+}
+.hero-cta:hover{ transform: translateY(-1px); box-shadow: 0 10px 24px rgba(59,130,246,.35);}
+.hero-bg{
+  position:absolute; inset:0; z-index:1;
+  background:
+    radial-gradient(1000px 300px at 70% 100%, rgba(59,130,246,.12), transparent 60%),
+    radial-gradient(700px 240px at 5% 100%, rgba(14,165,233,.12), transparent 60%);
+  filter: blur(20px) saturate(120%);
+  transform: translateZ(0);
 }
 
-/* 상자 안의 이미지 */
-.carousel-container img {
-  width: auto; /* 가로 비율 유지 */
-  height: 100%; /* 박스 높이에 맞춤 */
-  max-width: 100%; /* 박스 너비를 넘지 않도록 제한 */
-  object-fit: contain; /* 이미지 비율 유지 */
-  display: block;
+/* ---------- Label ---------- */
+.carousel-label{
+  margin: 26px 4px 12px;
+  font-size: clamp(20px, 2.4vw, 28px);
+  font-weight: 800;
+  letter-spacing: .01em;
 }
 
+/* ---------- Carousel Shell ---------- */
+.carousel{
+  position: relative;
+  border-radius: var(--radius);
+  overflow: hidden;
+  border: var(--border);
+  box-shadow: var(--shadow);
+  background: #0b1220;
+  --drag-x: 0px; /* touch drag visual */
+}
+.slide{
+  position: relative;
+  aspect-ratio: 16 / 9;
+  margin: 0;
+}
+.slide-img{
+  width: 100%; height: 100%; object-fit: cover;
+  transform: translateX(var(--drag-x));
+  transition: transform .15s ease-out;
+  will-change: transform, opacity;
+  animation: fadeIn .6s ease both, slideIn .6s ease both;
+}
+.carousel.dir-prev .slide-img{ animation-name: fadeIn, slideInPrev; }
 
-/* 이미지가 부모 요소에 딱 맞도록 설정 */
-.carousel-item img {
-  width: 100%; /* 너비를 부모 요소에 맞춤 */
-  height: 100%; /* 높이를 부모 요소에 맞춤 */
-  object-fit: cover; /* 비율 유지하며 박스를 꽉 채움 */
-  display: block;
+@keyframes fadeIn{ from{opacity:.25} to{opacity:1} }
+@keyframes slideIn{
+  from{ transform: translateX(calc(var(--drag-x) + 28px)); }
+  to{ transform: translateX(var(--drag-x)); }
+}
+@keyframes slideInPrev{
+  from{ transform: translateX(calc(var(--drag-x) - 28px)); }
+  to{ transform: translateX(var(--drag-x)); }
 }
 
-/* Carousel Navigation Buttons */
-button {
-  position: absolute;
-  top: 50%;
-  transform: translateY(-50%);
-  background-color: rgba(0, 0, 0, 0.5);
-  color: white;
-  border: none;
-  padding: 10px;
-  font-size: 20px;
-  cursor: pointer;
-  z-index: 100;
+/* ---------- Caption (glass) ---------- */
+.slide-caption{
+  position:absolute; inset: auto 16px 16px 16px;
+  display:flex; align-items:flex-end; pointer-events:none;
 }
-
-button.prev {
-  left: 10px;
+.glass{
+  pointer-events:auto;
+  max-width:min(560px, 92%);
+  backdrop-filter: blur(8px) saturate(120%);
+  background: linear-gradient(180deg, rgba(2,6,23,.28), rgba(2,6,23,.62));
+  border: 1px solid rgba(255,255,255,.12);
+  border-radius: 14px;
+  padding: 14px 16px;
+  color: #e5e7eb;
+  box-shadow: 0 6px 18px rgba(0,0,0,.35);
+  transform: translateY(6px);
+  animation: popIn .4s ease .05s both;
 }
-
-button.next {
-  right: 10px;
+.glass h3{ margin:0 0 4px; font-size: clamp(16px, 2.2vw, 22px); color:#fff; }
+.glass p{ margin:0 0 8px; color:#d1d5db; font-size: clamp(12px, 1.8vw, 15px); }
+.slide-link{
+  display:inline-block; color:#93c5fd; text-decoration:none; font-weight:700;
 }
+.slide-link:hover{ text-decoration: underline; }
+@keyframes popIn{ from{opacity:0; transform: translateY(16px)} to{opacity:1; transform: translateY(6px)} }
 
-button:hover {
-  background-color: rgba(0, 0, 0, 0.8);
+/* ---------- Controls ---------- */
+.nav{
+  position:absolute; top:50%; transform: translateY(-50%);
+  width:44px; height:44px; border-radius: 999px; border: none;
+  background: rgba(255,255,255,.85);
+  box-shadow: 0 6px 18px rgba(0,0,0,.25);
+  font-size: 26px; line-height: 44px; text-align: center;
+  cursor:pointer; user-select:none;
+}
+.nav:hover{ background:#fff; }
+.nav.prev{ left:12px; }
+.nav.next{ right:12px; }
+
+/* ---------- Progress ---------- */
+.progress{
+  position:absolute; left:0; right:0; bottom:0;
+  height:4px; background: rgba(255,255,255,.28);
+}
+.progress .bar{
+  height:100%; width:0; background:#60a5fa;
+  transform-origin: left center;
+  animation: carouselProgress 4s linear forwards;
+}
+@keyframes carouselProgress{ from{ width:0 } to{ width:100% } }
+
+/* ---------- Dots ---------- */
+.dots{
+  position:absolute; left:0; right:0; bottom:10px;
+  display:flex; gap:8px; justify-content:center; list-style:none; margin:0; padding:0;
+}
+.dot{
+  width:9px; height:9px; border-radius:999px; background: rgba(255,255,255,.55);
+  border: none; padding:0; cursor:pointer;
+}
+.dot.active{ background:#fff; transform: scale(1.1); }
+
+/* ---------- Reduced Motion ---------- */
+@media (prefers-reduced-motion: reduce) {
+  .slide-img, .glass, .progress .bar { animation: none !important; }
+  .slide-img{ transition: none; }
 }
