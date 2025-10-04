@@ -145,7 +145,7 @@ export default function Home() {
           onMouseEnter={() => setPause(true)}
           onMouseLeave={() => setPause(false)}
         >
-          {/* 뷰포트 고정 높이: 이미지가 잘리지 않도록 contain + 중앙정렬 */}
+          
           <div className="relative w-full h-[380px] md:h-[520px] bg-slate-50">
             {slides.map((s, idx) => (
               <div
@@ -155,7 +155,7 @@ export default function Home() {
                 }`}
                 aria-hidden={idx !== i}
               >
-                {/* 중앙 정렬 래퍼 */}
+                
                 <div className="flex h-full w-full items-center justify-center">
                   <img
                     src={s.src}
@@ -167,7 +167,7 @@ export default function Home() {
                   />
                 </div>
 
-                {/* 캡션: 작고 또렷하게, 레터박스 위에 배치 */}
+                
                 <div className="absolute left-3 md:left-4 bottom-3 md:bottom-4">
                   <div className="max-w-[360px] rounded-xl border border-black/10 bg-black/55 text-white backdrop-blur px-3.5 py-3 shadow-lg">
                     <h3 className="font-bold text-base md:text-lg leading-tight">
@@ -192,7 +192,7 @@ export default function Home() {
             ))}
           </div>
 
-          {/* 진행바 */}
+          
           <div className="h-1 bg-slate-200">
             <div
               key={i}
@@ -200,7 +200,7 @@ export default function Home() {
             />
           </div>
 
-          {/* 도트 */}
+          
           <div className="flex items-center justify-center gap-2 py-3">
             {slides.map((_, idx) => (
               <button
@@ -214,7 +214,7 @@ export default function Home() {
             ))}
           </div>
 
-          {/* 좌/우 버튼 */}
+          
           <button
             onClick={() => go("prev")}
             className="absolute left-2 md:left-3 top-1/2 -translate-y-1/2 h-10 w-10 md:h-11 md:w-11 rounded-full bg-white text-slate-800 shadow hover:shadow-md grid place-items-center"
