@@ -1,5 +1,14 @@
-client/node_modules/
+# dependencies
 node_modules/
-server/node_modules/
-client/src/App.css/
+client/node_modules/
+
+# production build
 client/build/
+
+# misc
+.DS_Store
+
+# env
+.env
+.env.local
+.env.*.local
