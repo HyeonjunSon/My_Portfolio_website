@@ -7,22 +7,33 @@ const RESUME_URL = `${process.env.PUBLIC_URL}/resume_hyeonjunSon.pdf`;
 
 export default function Resume() {
   return (
-    <section className="mx-auto max-w-6xl px-4 mt-10 mb-24">
-      <h1 className="text-3xl md:text-4xl font-extrabold tracking-tight text-slate-900">My Resume</h1>
+    <main className="pt-16 pb-stack-lg max-w-container-max mx-auto px-gutter">
+      <section className="my-stack-lg">
+        <p className="font-label-caps text-label-caps text-secondary uppercase tracking-widest mb-3">
+          Curriculum Vitae
+        </p>
+        <div className="flex flex-col md:flex-row md:items-end md:justify-between gap-4">
+          <h1 className="font-display-lg text-display-lg-mobile md:text-display-lg text-on-surface">
+            My Resume
+          </h1>
+          <a
+            href={RESUME_URL}
+            download
+            className="inline-flex items-center gap-2 gradient-button px-6 py-3 rounded-lg font-label-caps text-label-caps uppercase shadow-lg hover:brightness-110 transition-all w-fit"
+          >
+            <span className="material-symbols-outlined">download</span>
+            Download Resume
+          </a>
+        </div>
+      </section>
 
-      <a
-        href={RESUME_URL}
-        download
-        className="inline-flex mt-4 items-center rounded-xl bg-green-600 px-5 py-2.5 text-white font-semibold shadow hover:bg-green-700 transition"
-      >
-        Download Resume
-      </a>
-
-      <div className="mt-6 border border-black/30 rounded-xl overflow-hidden w-full max-w-[800px] h-[650px]">
-        <Worker workerUrl="https://unpkg.com/pdfjs-dist@3.11.174/build/pdf.worker.min.js">
-          <Viewer fileUrl={RESUME_URL} />
-        </Worker>
+      <div className="glass-card rounded-xl overflow-hidden w-full max-w-[820px] h-[700px] p-2">
+        <div className="h-full w-full rounded-lg overflow-hidden bg-white">
+          <Worker workerUrl="https://unpkg.com/pdfjs-dist@3.11.174/build/pdf.worker.min.js">
+            <Viewer fileUrl={RESUME_URL} />
+          </Worker>
+        </div>
       </div>
-    </section>
+    </main>
   );
 }

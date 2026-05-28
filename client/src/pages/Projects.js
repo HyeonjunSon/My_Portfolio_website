@@ -5,130 +5,186 @@ const BASE = process.env.PUBLIC_URL;
 
 const projectData = [
   {
-    title: "Weekly To-Do List",
+    title: "PetDate",
+    icon: "pets",
     description:
-      "Weekly board with quick add and drag-and-drop between days. Click to toggle completion; lightweight UI for fast planning.",
-    image: `${BASE}/images/image1.jpg`,
-    stack: ["HTML", "CSS", "Vanilla JS"],
+      "Full-stack pet matching: profile cards, Cloudinary image uploads, and real-time chat with protected flows.",
+    image: `${BASE}/images/image5.jpg`,
+    stack: ["React", "TypeScript", "MongoDB", "Cloudinary"],
     links: [
-      {
-        label: "Code",
-        href: "https://github.com/HyeonjunSon/Side_projects/tree/main/To_do_list",
-      },
-    ],
-  },
-  {
-    title: "Timer",
-    description:
-      "Countdown with start/pause/resume/reset, named presets, sound toggle, and a history log. Warns visually in the last 10 seconds.",
-    image: `${BASE}/images/image2.jpg`,
-    stack: ["HTML", "CSS", "Vanilla JS"],
-    links: [
-      {
-        label: "Code",
-        href: "https://github.com/HyeonjunSon/Side_projects/tree/main/Timer",
-      },
-    ],
-  },
-  {
-    title: "Calculator",
-    description:
-      "Clean calculator with basic operations, history list, keyboard support, and one-click clipboard share for results.",
-    image: `${BASE}/images/image3.jpg`,
-    stack: ["HTML", "CSS", "Vanilla JS"],
-    links: [
-      {
-        label: "Code",
-        href: "https://github.com/HyeonjunSon/Side_projects/tree/main/Calculator",
-      },
+      { label: "Frontend", href: "https://github.com/HyeonjunSon/petApp-frontend" },
+      { label: "Backend", href: "https://github.com/HyeonjunSon/petApp-server" },
     ],
   },
   {
     title: "Board Website",
+    icon: "forum",
     description:
-      "Authentication, posts, and comments built on clean REST patterns with guarded routes and basic moderation tools.",
+      "Authentication, posts, and comments on clean REST patterns with guarded routes and basic moderation tools.",
     image: `${BASE}/images/image4.jpg`,
-    stack: ["React", "Tailwind", "MongoDB", "REST", "Auth"],
+    stack: ["React", "Tailwind", "MongoDB", "Auth"],
     links: [
       { label: "Frontend", href: "https://github.com/HyeonjunSon/Board_project_front" },
       { label: "Backend", href: "https://github.com/HyeonjunSon/Board_project_back" },
     ],
   },
   {
-    title: "PetDate",
+    title: "Weekly To-Do List",
+    icon: "checklist",
     description:
-      "Full-stack pet matching: profile cards, Cloudinary image uploads, and real-time chat with protected flows.",
-    image: `${BASE}/images/image5.jpg`,
-    stack: ["React", "TypeScript", "Tailwind", "Cloudinary", "MongoDB"],
+      "Weekly board with quick add and drag-and-drop between days. Click to toggle completion; lightweight planning UI.",
+    image: `${BASE}/images/image1.jpg`,
+    stack: ["HTML", "CSS", "Vanilla JS"],
     links: [
-      { label: "Frontend", href: "https://github.com/HyeonjunSon/petApp-frontend" },
-      { label: "Backend", href: "https://github.com/HyeonjunSon/petApp-server" },
+      { label: "Code", href: "https://github.com/HyeonjunSon/Side_projects/tree/main/To_do_list" },
+    ],
+  },
+  {
+    title: "Timer",
+    icon: "timer",
+    description:
+      "Countdown with start/pause/resume/reset, named presets, sound toggle, and a history log. Warns in the last 10s.",
+    image: `${BASE}/images/image2.jpg`,
+    stack: ["HTML", "CSS", "Vanilla JS"],
+    links: [
+      { label: "Code", href: "https://github.com/HyeonjunSon/Side_projects/tree/main/Timer" },
+    ],
+  },
+  {
+    title: "Calculator",
+    icon: "calculate",
+    description:
+      "Clean calculator with basic operations, history list, keyboard support, and one-click clipboard share.",
+    image: `${BASE}/images/image3.jpg`,
+    stack: ["HTML", "CSS", "Vanilla JS"],
+    links: [
+      { label: "Code", href: "https://github.com/HyeonjunSon/Side_projects/tree/main/Calculator" },
     ],
   },
 ];
 
 export default function Projects() {
   return (
-    <section className="mx-auto max-w-6xl px-4 mt-10">
-      <div className="mb-6">
-        <h1 className="text-3xl md:text-4xl font-extrabold tracking-tight text-slate-900">
-          Hyeonjun&rsquo;s Projects
-        </h1>
-        <p className="text-slate-600 mt-2 max-w-2xl">
-          Selected work highlighting UI clarity, pragmatic state handling, and
-          small details that improve day-to-day usability.
-        </p>
-      </div>
+    <main className="relative min-h-screen pt-16 pb-stack-lg bg-grid-pattern">
+      {/* Hero */}
+      <header className="max-w-container-max mx-auto px-gutter mb-stack-lg pt-12">
+        <div className="max-w-3xl">
+          <p className="font-label-caps text-label-caps text-secondary uppercase tracking-widest mb-3">
+            Portfolio
+          </p>
+          <h1 className="font-display-lg text-display-lg-mobile md:text-display-lg text-on-surface mb-stack-sm">
+            Curated Projects
+          </h1>
+          <p className="font-body-lg text-body-lg text-on-surface-variant max-w-2xl">
+            Selected work highlighting UI clarity, pragmatic state handling, and
+            small details that improve day-to-day usability.
+          </p>
+        </div>
+      </header>
 
-      <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
-        {projectData.map((p) => (
-          <article
-            key={p.title}
-            className="flex flex-col rounded-2xl border border-slate-200 overflow-hidden shadow-[0_10px_35px_rgba(15,23,42,.06)] hover:shadow-[0_14px_45px_rgba(15,23,42,.1)] hover:-translate-y-1 transition duration-300"
-          >
-            <div className="aspect-[16/9] overflow-hidden bg-slate-50">
-              <img
-                src={p.image}
-                alt={p.title}
-                loading="lazy"
-                className="h-full w-full object-contain"
-              />
-            </div>
+      {/* Grid */}
+      <section className="max-w-container-max mx-auto px-gutter">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-gutter">
+          {projectData.map((p) => (
+            <div
+              key={p.title}
+              className="glass-card group flex flex-col rounded-xl overflow-hidden hover:-translate-y-1"
+            >
+              <div className="h-56 bg-surface-container overflow-hidden relative">
+                <img
+                  src={p.image}
+                  alt={p.title}
+                  loading="lazy"
+                  className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
+                />
+                <div className="absolute inset-0 bg-gradient-to-t from-surface-dim via-transparent to-transparent opacity-60" />
+              </div>
 
-            <div className="flex flex-1 flex-col p-4">
-              <h3 className="text-lg font-bold text-slate-900">{p.title}</h3>
-              <p className="text-sm text-slate-600 mt-1 flex-1">{p.description}</p>
+              <div className="p-stack-md flex flex-col flex-grow">
+                <div className="flex justify-between items-start mb-2">
+                  <h3 className="font-headline-md text-headline-md text-on-surface">
+                    {p.title}
+                  </h3>
+                  <span
+                    className="material-symbols-outlined text-secondary"
+                    style={{ fontVariationSettings: "'FILL' 1" }}
+                  >
+                    {p.icon}
+                  </span>
+                </div>
 
-              {p.stack && (
-                <div className="mt-3 flex flex-wrap gap-1.5">
+                <p className="text-on-surface-variant font-body-md mb-6 flex-grow">
+                  {p.description}
+                </p>
+
+                <div className="flex flex-wrap gap-2 mb-6">
                   {p.stack.map((t) => (
                     <span
                       key={t}
-                      className="px-2 py-0.5 text-[11px] font-semibold rounded-full bg-slate-100 border border-slate-200 text-slate-700"
+                      className="font-label-caps text-label-caps px-3 py-1 bg-secondary/10 text-secondary rounded-full border border-secondary/20"
                     >
                       {t}
                     </span>
                   ))}
                 </div>
-              )}
 
-              <div className="mt-4 flex flex-wrap gap-2">
-                {p.links.map((l) => (
-                  <a
-                    key={l.label}
-                    href={l.href}
-                    target="_blank"
-                    rel="noreferrer"
-                    className="inline-flex items-center gap-1 rounded-full bg-slate-900 text-white px-4 py-2 text-sm font-semibold hover:bg-slate-800 transition"
-                  >
-                    {l.label} <span aria-hidden>→</span>
-                  </a>
-                ))}
+                <div className="flex items-center gap-3">
+                  {p.links.map((l, idx) => (
+                    <a
+                      key={l.label}
+                      href={l.href}
+                      target="_blank"
+                      rel="noreferrer"
+                      className={
+                        idx === 0
+                          ? "flex-1 text-center py-3 bg-secondary text-on-secondary rounded-lg font-label-caps text-label-caps font-bold transition-all hover:shadow-[0_0_15px_rgba(93,230,255,0.4)]"
+                          : "flex items-center gap-1 px-4 py-3 border border-outline-variant text-on-surface hover:border-secondary hover:text-secondary rounded-lg transition-colors font-label-caps text-label-caps"
+                      }
+                    >
+                      {idx === 0 ? l.label.toUpperCase() : null}
+                      {idx !== 0 && (
+                        <>
+                          <span className="material-symbols-outlined text-base">code</span>
+                          {l.label}
+                        </>
+                      )}
+                    </a>
+                  ))}
+                </div>
               </div>
             </div>
-          </article>
-        ))}
-      </div>
-    </section>
+          ))}
+        </div>
+      </section>
+
+      {/* CTA */}
+      <section className="max-w-container-max mx-auto px-gutter mt-stack-lg">
+        <div className="glass-card p-12 rounded-xl flex flex-col items-center text-center">
+          <h2 className="font-headline-md text-headline-md text-on-surface mb-stack-sm">
+            Want to see more?
+          </h2>
+          <p className="text-on-surface-variant mb-8 max-w-xl">
+            Check out the rest of my work on GitHub, or reach out if you&rsquo;d
+            like to collaborate.
+          </p>
+          <div className="flex flex-col sm:flex-row gap-stack-md">
+            <a
+              href="https://github.com/HyeonjunSon"
+              target="_blank"
+              rel="noreferrer"
+              className="gradient-button px-8 py-3 font-label-caps text-label-caps uppercase rounded-lg hover:brightness-110 active:scale-95 transition-all"
+            >
+              View GitHub
+            </a>
+            <a
+              href="/contact"
+              className="px-8 py-3 border border-secondary text-secondary font-label-caps text-label-caps uppercase rounded-lg hover:bg-secondary/10 transition-all"
+            >
+              Contact Me
+            </a>
+          </div>
+        </div>
+      </section>
+    </main>
   );
 }

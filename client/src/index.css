@@ -2,7 +2,112 @@
 @tailwind components;
 @tailwind utilities;
 
-/* Carousel progress bar animation */
+@layer base {
+  html {
+    scroll-behavior: smooth;
+  }
+
+  body {
+    background-color: #051424;
+    color: #d4e4fa;
+    background-image: radial-gradient(
+        at 0% 0%,
+        rgba(93, 230, 255, 0.05) 0px,
+        transparent 50%
+      ),
+      radial-gradient(at 100% 100%, rgba(189, 194, 255, 0.05) 0px, transparent 50%);
+    background-attachment: fixed;
+    overflow-x: hidden;
+  }
+
+  ::selection {
+    background: #5de6ff;
+    color: #051424;
+  }
+
+  .material-symbols-outlined {
+    font-family: "Material Symbols Outlined";
+    font-weight: normal;
+    font-style: normal;
+    font-size: 24px;
+    line-height: 1;
+    letter-spacing: normal;
+    text-transform: none;
+    display: inline-block;
+    white-space: nowrap;
+    word-wrap: normal;
+    direction: ltr;
+    -webkit-font-feature-settings: "liga";
+    font-feature-settings: "liga";
+    -webkit-font-smoothing: antialiased;
+    font-variation-settings: "FILL" 0, "wght" 400, "GRAD" 0, "opsz" 24;
+  }
+}
+
+@layer components {
+  .glass-card {
+    background: rgba(18, 33, 49, 0.4);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    transition: border-color 0.3s ease, box-shadow 0.3s ease, transform 0.3s ease;
+  }
+
+  .glass-card:hover {
+    border-color: #5de6ff;
+    box-shadow: 0 0 24px rgba(93, 230, 255, 0.12);
+  }
+
+  .gradient-button {
+    background: linear-gradient(135deg, #5de6ff 0%, #6c77e1 100%);
+    color: #00363e;
+  }
+
+  .glow-input {
+    transition: border-color 0.2s ease, box-shadow 0.2s ease;
+  }
+
+  .glow-input:focus {
+    outline: none;
+    border-color: #5de6ff;
+    box-shadow: 0 0 12px rgba(93, 230, 255, 0.2);
+  }
+
+  .bg-grid-pattern {
+    background-image: radial-gradient(
+      circle at 2px 2px,
+      rgba(255, 255, 255, 0.05) 1px,
+      transparent 0
+    );
+    background-size: 32px 32px;
+  }
+
+  .hero-gradient {
+    background: radial-gradient(
+      circle at 50% 40%,
+      rgba(93, 230, 255, 0.12) 0%,
+      rgba(5, 20, 36, 0) 70%
+    );
+  }
+}
+
+/* Typing cursor for hero */
+.typing-cursor::after {
+  content: "|";
+  animation: blink 1s step-end infinite;
+}
+
+@keyframes blink {
+  from,
+  to {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0;
+  }
+}
+
+/* Carousel progress bar animation (retained) */
 @keyframes progress {
   from {
     width: 0;
@@ -10,8 +115,4 @@
   to {
     width: 100%;
   }
-}
-
-html {
-  scroll-behavior: smooth;
 }

@@ -1,288 +1,340 @@
 // src/pages/Home.js
-import React, { useEffect, useRef, useState } from "react";
+import React, { useEffect, useRef } from "react";
 import { Link } from "react-router-dom";
 
 const BASE = process.env.PUBLIC_URL;
 
-const techStack = [
-  "React",
-  "React Native",
-  "TypeScript",
-  "JavaScript",
-  "Node.js",
-  "Tailwind CSS",
-  "HTML5",
-  "MongoDB",
-  "SQL",
-];
-
-const slides = [
-  {
-    src: `${BASE}/images/image1.jpg`,
-    title: "Weekly To-Do List",
-    sub: "Organize tasks by day and stay on track",
-  },
-  {
-    src: `${BASE}/images/image2.jpg`,
-    title: "Timer",
-    sub: "Countdown with presets & sound",
-  },
-  {
-    src: `${BASE}/images/image3.jpg`,
-    title: "Calculator",
-    sub: "Accurate ops • history • share",
-  },
-  {
-    src: `${BASE}/images/image4.jpg`,
-    title: "Board Project",
-    sub: "Auth • posts • comments • moderation",
-  },
-  {
-    src: `${BASE}/images/image5.jpg`,
-    title: "PetDate",
-    sub: "Profile matches • chat • photo uploads",
-  },
-];
-
 const skillGroups = [
-  { label: "Frontend", items: ["React", "React Native", "TypeScript", "Tailwind CSS", "HTML5 / CSS3"] },
-  { label: "Backend", items: ["Node.js", "Express", "REST APIs", "Auth / JWT"] },
-  { label: "Data", items: ["MongoDB", "SQL / MySQL", "Cloudinary"] },
-  { label: "Tooling", items: ["Git / GitHub", "Vercel", "Vite", "Jest"] },
+  { icon: "monitor", label: "Frontend", items: ["React", "React Native", "TypeScript", "Tailwind CSS", "HTML5 / CSS3"] },
+  { icon: "dns", label: "Backend", items: ["Node.js", "Express", "REST APIs", "Auth / JWT"] },
+  { icon: "database", label: "Data", items: ["MongoDB", "SQL / MySQL", "Cloudinary"] },
+  { icon: "build", label: "Tooling", items: ["Git / GitHub", "Vercel", "Vite", "Jest"] },
 ];
+
+function useTypingEffect(ref) {
+  useEffect(() => {
+    const phrases = [
+      "Full-Stack Developer",
+      "React & React Native",
+      "Problem Solver",
+      "Lifelong Learner",
+    ];
+    let phraseIndex = 0;
+    let charIndex = 0;
+    let isDeleting = false;
+    let timeout;
+    const el = ref.current;
+    if (!el) return;
+
+    const tick = () => {
+      const current = phrases[phraseIndex];
+      el.textContent = isDeleting
+        ? current.substring(0, charIndex - 1)
+        : current.substring(0, charIndex + 1);
+      charIndex += isDeleting ? -1 : 1;
+
+      if (!isDeleting && charIndex === current.length) {
+        isDeleting = true;
+        timeout = setTimeout(tick, 1800);
+      } else if (isDeleting && charIndex === 0) {
+        isDeleting = false;
+        phraseIndex = (phraseIndex + 1) % phrases.length;
+        timeout = setTimeout(tick, 400);
+      } else {
+        timeout = setTimeout(tick, isDeleting ? 45 : 90);
+      }
+    };
+    tick();
+    return () => clearTimeout(timeout);
+  }, [ref]);
+}
+
+function useParticles(canvasRef) {
+  useEffect(() => {
+    const canvas = canvasRef.current;
+    if (!canvas) return;
+    const ctx = canvas.getContext("2d");
+    let particles = [];
+    let raf;
+
+    const resize = () => {
+      canvas.width = canvas.offsetWidth;
+      canvas.height = canvas.offsetHeight;
+      const count = Math.min(90, Math.floor((canvas.width * canvas.height) / 16000));
+      particles = Array.from({ length: count }, () => ({
+        x: Math.random() * canvas.width,
+        y: Math.random() * canvas.height,
+        size: Math.random() * 2 + 0.5,
+        sx: Math.random() * 0.5 - 0.25,
+        sy: Math.random() * 0.5 - 0.25,
+        o: Math.random() * 0.5 + 0.1,
+      }));
+    };
+
+    const animate = () => {
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
+      particles.forEach((p) => {
+        p.x += p.sx;
+        p.y += p.sy;
+        if (p.x > canvas.width) p.x = 0;
+        if (p.x < 0) p.x = canvas.width;
+        if (p.y > canvas.height) p.y = 0;
+        if (p.y < 0) p.y = canvas.height;
+        ctx.fillStyle = `rgba(93, 230, 255, ${p.o})`;
+        ctx.beginPath();
+        ctx.arc(p.x, p.y, p.size, 0, Math.PI * 2);
+        ctx.fill();
+      });
+      raf = requestAnimationFrame(animate);
+    };
+
+    resize();
+    animate();
+    window.addEventListener("resize", resize);
+    return () => {
+      cancelAnimationFrame(raf);
+      window.removeEventListener("resize", resize);
+    };
+  }, [canvasRef]);
+}
 
 export default function Home() {
-  const [i, setI] = useState(0);
-  const [pause, setPause] = useState(false);
-  const timer = useRef(null);
-  const wrap = useRef(null);
-
-  const go = (dir) => {
-    setI((prev) =>
-      dir === "next"
-        ? (prev + 1) % slides.length
-        : (prev - 1 + slides.length) % slides.length
-    );
-  };
-
-  // autoplay
-  useEffect(() => {
-    if (pause) return;
-    timer.current = setInterval(() => go("next"), 4000);
-    return () => clearInterval(timer.current);
-  }, [i, pause]);
-
-  // keyboard
-  useEffect(() => {
-    const onKey = (e) => {
-      if (e.key === "ArrowRight") go("next");
-      if (e.key === "ArrowLeft") go("prev");
-    };
-    window.addEventListener("keydown", onKey);
-    return () => window.removeEventListener("keydown", onKey);
-  }, []);
-
-  // swipe
-  useEffect(() => {
-    const el = wrap.current;
-    if (!el) return;
-    let startX = 0,
-      dx = 0;
-    const s = (e) => {
-      startX = e.touches[0].clientX;
-      dx = 0;
-      setPause(true);
-    };
-    const m = (e) => {
-      dx = e.touches[0].clientX - startX;
-    };
-    const e_ = () => {
-      if (Math.abs(dx) > 60) go(dx < 0 ? "next" : "prev");
-      setPause(false);
-    };
-    el.addEventListener("touchstart", s, { passive: true });
-    el.addEventListener("touchmove", m, { passive: true });
-    el.addEventListener("touchend", e_);
-    return () => {
-      el.removeEventListener("touchstart", s);
-      el.removeEventListener("touchmove", m);
-      el.removeEventListener("touchend", e_);
-    };
-  }, []);
+  const typingRef = useRef(null);
+  const canvasRef = useRef(null);
+  useTypingEffect(typingRef);
+  useParticles(canvasRef);
 
   return (
     <div>
       {/* Hero */}
-      <section className="mx-auto max-w-6xl px-4 mt-8">
-        <div className="rounded-3xl border border-slate-200 bg-gradient-to-tr from-sky-50 via-white to-rose-50 shadow-[0_10px_35px_rgba(15,23,42,.08)]">
-          <div className="p-7 md:p-10">
-            <div className="flex flex-wrap gap-2 text-[11px] md:text-xs font-semibold text-slate-600">
-              {techStack.map((t) => (
-                <span
-                  key={t}
-                  className="px-2 py-1 rounded-full bg-white/70 border border-slate-200"
-                >
-                  {t}
-                </span>
-              ))}
-            </div>
+      <section className="relative min-h-[88vh] flex items-center justify-center hero-gradient overflow-hidden">
+        <canvas
+          ref={canvasRef}
+          className="absolute inset-0 w-full h-full pointer-events-none"
+          aria-hidden
+        />
+        <div className="relative z-10 max-w-container-max mx-auto px-gutter text-center">
+          <div className="inline-flex items-center gap-2 px-4 py-1 mb-6 rounded-full bg-secondary/10 border border-secondary/20 font-label-caps text-secondary text-label-caps">
+            <span className="h-2 w-2 rounded-full bg-secondary animate-pulse" />
+            Hyeonjun Son · Available for Opportunities
+          </div>
 
-            <p className="mt-4 text-sm font-semibold uppercase tracking-widest text-blue-600">
-              Full-Stack Developer
-            </p>
-            <h1 className="mt-1 text-[28px] md:text-[44px] font-extrabold leading-tight tracking-tight text-slate-900">
-              Hi, I&rsquo;m Hyeonjun Son.
-            </h1>
+          <h1 className="font-display-lg text-display-lg-mobile md:text-display-lg mb-6 tracking-tight text-on-surface">
+            Building Digital <span className="text-secondary">Experiences</span>
+          </h1>
 
-            <p className="mt-3 max-w-2xl text-slate-600 md:text-lg">
-              I build web and mobile apps focused on performance, clarity, and
-              dependable UI — from clean React frontends to REST APIs and
-              data-driven features.
-            </p>
+          <div className="h-10 md:h-12 mb-10">
+            <p
+              ref={typingRef}
+              className="font-code-sm text-on-surface-variant text-body-lg md:text-headline-md typing-cursor"
+            />
+          </div>
 
-            <div className="mt-6 flex flex-wrap gap-3">
-              <Link
-                to="/projects"
-                className="inline-flex items-center gap-1 rounded-xl bg-slate-900 px-5 py-2.5 text-white font-semibold shadow hover:bg-slate-800 transition"
-              >
-                View Projects <span aria-hidden>→</span>
-              </Link>
-              <Link
-                to="/contact"
-                className="inline-flex items-center rounded-xl border border-slate-300 bg-white px-5 py-2.5 font-semibold text-slate-800 hover:bg-slate-50 transition"
-              >
-                Get in Touch
-              </Link>
-              <a
-                href={`${BASE}/resume_hyeonjunSon.pdf`}
-                download
-                className="inline-flex items-center rounded-xl border border-slate-300 bg-white px-5 py-2.5 font-semibold text-slate-800 hover:bg-slate-50 transition"
-              >
-                Download Resume
-              </a>
-            </div>
+          <div className="flex flex-col md:flex-row gap-4 justify-center items-center">
+            <Link
+              to="/projects"
+              className="group relative px-8 py-4 gradient-button rounded-xl font-label-caps text-label-caps uppercase shadow-lg shadow-secondary/20 hover:shadow-secondary/40 transition-all duration-300 transform hover:-translate-y-1"
+            >
+              View Work
+            </Link>
+            <Link
+              to="/contact"
+              className="px-8 py-4 glass-card rounded-xl font-label-caps text-label-caps uppercase text-on-surface hover:border-secondary transition-all"
+            >
+              Contact Me
+            </Link>
           </div>
         </div>
       </section>
 
-      {/* Featured Projects + Carousel */}
-      <section className="mx-auto max-w-6xl px-4 mt-12">
-        <div className="flex items-end justify-between mb-4">
-          <h2 className="text-2xl md:text-3xl font-extrabold text-slate-900 tracking-tight">
-            Featured Projects
-          </h2>
-          <Link
-            to="/projects"
-            className="text-sm font-semibold text-blue-600 hover:text-blue-700"
-          >
-            See all →
-          </Link>
-        </div>
+      {/* Focus Areas — Bento */}
+      <section className="py-stack-lg bg-surface-container-lowest">
+        <div className="max-w-container-max mx-auto px-gutter">
+          <div className="mb-stack-md">
+            <p className="font-label-caps text-label-caps text-secondary uppercase tracking-widest mb-2">
+              What I Do
+            </p>
+            <h2 className="font-headline-md text-headline-md text-on-surface">
+              Selected Focus Areas
+            </h2>
+            <p className="text-on-surface-variant font-body-md mt-2">
+              Merging engineering precision with a clear, dependable UI.
+            </p>
+          </div>
 
-        <div
-          ref={wrap}
-          className="relative overflow-hidden rounded-2xl border border-slate-200 bg-white shadow-[0_10px_35px_rgba(15,23,42,.08)]"
-          onMouseEnter={() => setPause(true)}
-          onMouseLeave={() => setPause(false)}
-        >
-          <div className="relative w-full h-[380px] md:h-[520px] bg-slate-50">
-            {slides.map((s, idx) => (
-              <div
-                key={s.src}
-                className={`absolute inset-0 transition-opacity duration-500 ${
-                  idx === i ? "opacity-100" : "opacity-0"
-                }`}
-                aria-hidden={idx !== i}
-              >
-                <div className="flex h-full w-full items-center justify-center">
-                  <img
-                    src={s.src}
-                    alt={s.title}
-                    className="max-h-full max-w-full object-contain"
-                    onError={(e) =>
-                      (e.currentTarget.src = `${BASE}/images/image1.jpg`)
-                    }
-                  />
-                </div>
-
-                <div className="absolute left-3 md:left-4 bottom-3 md:bottom-4">
-                  <div className="max-w-[360px] rounded-xl border border-black/10 bg-black/55 text-white backdrop-blur px-3.5 py-3 shadow-lg">
-                    <h3 className="font-bold text-base md:text-lg leading-tight">
-                      {s.title}
-                    </h3>
-                    {s.sub && (
-                      <p className="text-xs md:text-sm text-white/90 mt-0.5">
-                        {s.sub}
-                      </p>
-                    )}
-                    <Link
-                      to="/projects"
-                      className="inline-flex items-center gap-1 mt-2 text-sm font-semibold text-blue-200 hover:text-white underline-offset-4 hover:underline"
-                    >
-                      View Case Study <span aria-hidden>→</span>
-                    </Link>
+          <div className="grid grid-cols-1 md:grid-cols-12 gap-gutter">
+            {/* Architecture */}
+            <div className="md:col-span-8 glass-card p-8 rounded-xl flex flex-col justify-between group">
+              <div>
+                <div className="flex justify-between items-start mb-6">
+                  <span
+                    className="material-symbols-outlined text-secondary text-4xl"
+                    style={{ fontVariationSettings: "'FILL' 1" }}
+                  >
+                    terminal
+                  </span>
+                  <div className="flex gap-2 flex-wrap justify-end">
+                    {["React", "TypeScript", "Node.js"].map((t) => (
+                      <span
+                        key={t}
+                        className="font-label-caps text-label-caps bg-surface-variant px-3 py-1 rounded"
+                      >
+                        {t}
+                      </span>
+                    ))}
                   </div>
                 </div>
+                <h3 className="font-headline-md text-headline-md mb-2 text-on-surface">
+                  Full-Stack Engineering
+                </h3>
+                <p className="text-on-surface-variant font-body-md max-w-lg">
+                  Building responsive React frontends backed by clean REST APIs —
+                  with a focus on performance, readable code, and a dependable
+                  user experience.
+                </p>
               </div>
-            ))}
-          </div>
+              <div className="mt-8 overflow-hidden rounded-lg bg-surface-container-lowest p-4 border border-white/5">
+                <pre className="font-code-sm text-code-sm text-secondary opacity-70 group-hover:opacity-100 transition-opacity overflow-x-auto">
+                  <code>{`const buildUI = (data) =>
+  data.map((item) => ({
+    ...item,
+    clarity: 'maximum',
+    performance: 'optimized',
+  }));`}</code>
+                </pre>
+              </div>
+            </div>
 
-          <div className="h-1 bg-slate-200">
-            <div
-              key={i}
-              className="h-full bg-blue-500 animate-[progress_4s_linear_forwards]"
-            />
-          </div>
+            {/* Featured project */}
+            <div className="md:col-span-4 glass-card rounded-xl overflow-hidden flex flex-col group">
+              <div className="h-40 overflow-hidden bg-surface-container relative">
+                <img
+                  src={`${BASE}/images/image5.jpg`}
+                  alt="PetDate"
+                  className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700"
+                />
+                <div className="absolute inset-0 bg-gradient-to-t from-surface-dim via-transparent to-transparent opacity-70" />
+              </div>
+              <div className="p-6 flex flex-col flex-1">
+                <span className="font-label-caps text-label-caps text-secondary mb-1">
+                  FEATURED PROJECT
+                </span>
+                <h3 className="font-headline-md text-headline-md mb-2 text-on-surface">
+                  PetDate
+                </h3>
+                <p className="text-on-surface-variant font-body-md flex-1">
+                  Full-stack pet matching with image uploads and real-time chat.
+                </p>
+                <Link
+                  to="/projects"
+                  className="flex items-center gap-2 mt-4 text-secondary font-label-caps text-label-caps hover:gap-3 transition-all"
+                >
+                  EXPLORE WORK
+                  <span className="material-symbols-outlined text-base">arrow_forward</span>
+                </Link>
+              </div>
+            </div>
 
-          <div className="flex items-center justify-center gap-2 py-3">
-            {slides.map((_, idx) => (
-              <button
-                key={idx}
-                onClick={() => setI(idx)}
-                className={`h-2.5 w-2.5 rounded-full transition ${
-                  idx === i ? "bg-slate-900" : "bg-slate-400 hover:bg-slate-600"
-                }`}
-                aria-label={`Go to slide ${idx + 1}`}
-              />
-            ))}
-          </div>
+            {/* UX card */}
+            <div className="md:col-span-4 glass-card p-8 rounded-xl flex flex-col justify-between">
+              <span className="material-symbols-outlined text-secondary text-4xl mb-4">
+                auto_awesome
+              </span>
+              <div>
+                <h3 className="font-headline-md text-headline-md mb-2 text-on-surface">
+                  UI / UX Detail
+                </h3>
+                <p className="text-on-surface-variant font-body-md">
+                  Crafting intuitive interfaces with the small details that make
+                  apps pleasant to use every day.
+                </p>
+              </div>
+            </div>
 
-          <button
-            onClick={() => go("prev")}
-            className="absolute left-2 md:left-3 top-1/2 -translate-y-1/2 h-10 w-10 md:h-11 md:w-11 rounded-full bg-white text-slate-800 shadow hover:shadow-md grid place-items-center"
-            aria-label="Previous slide"
-          >
-            ‹
-          </button>
-          <button
-            onClick={() => go("next")}
-            className="absolute right-2 md:right-3 top-1/2 -translate-y-1/2 h-10 w-10 md:h-11 md:w-11 rounded-full bg-white text-slate-800 shadow hover:shadow-md grid place-items-center"
-            aria-label="Next slide"
-          >
-            ›
-          </button>
+            {/* Always learning */}
+            <div className="md:col-span-8 glass-card p-8 rounded-xl flex flex-col md:flex-row items-start md:items-center gap-6">
+              <span
+                className="material-symbols-outlined text-secondary text-5xl"
+                style={{ fontVariationSettings: "'FILL' 1" }}
+              >
+                rocket_launch
+              </span>
+              <div>
+                <h3 className="font-headline-md text-headline-md mb-2 text-on-surface">
+                  Always Shipping & Learning
+                </h3>
+                <p className="text-on-surface-variant font-body-md">
+                  From side projects to full-stack apps, I keep building — turning
+                  ideas into working products and sharpening my craft along the way.
+                </p>
+              </div>
+            </div>
+          </div>
         </div>
       </section>
 
       {/* Skills */}
-      <section className="mx-auto max-w-6xl px-4 mt-12 mb-24">
-        <h2 className="text-2xl md:text-3xl font-extrabold text-slate-900 tracking-tight mb-4">
-          Skills &amp; Tools
-        </h2>
-        <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
-          {skillGroups.map((g) => (
-            <div
-              key={g.label}
-              className="rounded-2xl border border-slate-200 bg-white p-5 shadow-[0_10px_35px_rgba(15,23,42,.05)]"
-            >
-              <h3 className="font-bold text-slate-900">{g.label}</h3>
-              <ul className="mt-2 space-y-1 text-sm text-slate-600">
-                {g.items.map((it) => (
-                  <li key={it}>{it}</li>
-                ))}
-              </ul>
+      <section className="py-stack-lg">
+        <div className="max-w-container-max mx-auto px-gutter">
+          <div className="mb-stack-md">
+            <p className="font-label-caps text-label-caps text-secondary uppercase tracking-widest mb-2">
+              Toolbox
+            </p>
+            <h2 className="font-headline-md text-headline-md text-on-surface">
+              Skills &amp; Tools
+            </h2>
+          </div>
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-gutter">
+            {skillGroups.map((g) => (
+              <div key={g.label} className="glass-card p-6 rounded-xl">
+                <span className="material-symbols-outlined text-secondary mb-3">
+                  {g.icon}
+                </span>
+                <h3 className="font-headline-md text-on-surface text-body-lg font-bold">
+                  {g.label}
+                </h3>
+                <ul className="mt-3 space-y-1.5 font-code-sm text-code-sm text-on-surface-variant">
+                  {g.items.map((it) => (
+                    <li key={it} className="flex items-center gap-2">
+                      <span className="h-1 w-1 rounded-full bg-secondary" />
+                      {it}
+                    </li>
+                  ))}
+                </ul>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* CTA */}
+      <section className="py-stack-lg">
+        <div className="max-w-container-max mx-auto px-gutter">
+          <div className="glass-card p-stack-lg rounded-xl border border-secondary/20 text-center">
+            <h2 className="font-display-lg text-headline-md md:text-display-lg mb-6 text-on-surface">
+              Let&rsquo;s build something together
+            </h2>
+            <p className="text-on-surface-variant text-body-lg max-w-2xl mx-auto mb-10">
+              I&rsquo;m open to internships, junior roles, and collaborative
+              projects. Let&rsquo;s connect and create something great.
+            </p>
+            <div className="flex flex-col md:flex-row gap-4 justify-center">
+              <Link
+                to="/contact"
+                className="gradient-button px-10 py-4 rounded-xl font-label-caps text-label-caps uppercase hover:brightness-110 transition-all shadow-lg shadow-secondary/20"
+              >
+                Get in Touch
+              </Link>
+              <a
+                href="https://github.com/HyeonjunSon"
+                target="_blank"
+                rel="noreferrer"
+                className="px-10 py-4 glass-card rounded-xl font-label-caps text-label-caps uppercase text-on-surface hover:border-secondary transition-all"
+              >
+                View GitHub
+              </a>
             </div>
-          ))}
+          </div>
         </div>
       </section>
     </div>
