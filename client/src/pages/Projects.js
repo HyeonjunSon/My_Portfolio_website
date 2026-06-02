@@ -5,12 +5,27 @@ const BASE = process.env.PUBLIC_URL;
 
 const projectData = [
   {
+    title: "CaMoim",
+    icon: "groups",
+    badge: "Live on the App Store",
+    description:
+      "Cross-platform community app for Koreans across Canada — school verification, group meetups, and a multi-board feed. Real-time chat (1:1, group rooms, school lounges) with push notifications.",
+    // image: `${BASE}/images/image6.jpg`, // add screenshot here
+    stack: ["React Native", "Expo", "Node.js", "MongoDB", "Socket.io"],
+    links: [
+      {
+        label: "App Store",
+        href: "https://apps.apple.com/ca/app/%EC%BA%90%EB%AA%A8%EC%9E%84-%EC%BA%90%EB%82%98%EB%8B%A4-%ED%95%9C%EC%9D%B8-%EB%AA%A8%EC%9E%84/id6763469709",
+      },
+    ],
+  },
+  {
     title: "PetDate",
     icon: "pets",
     description:
-      "Full-stack pet matching: profile cards, Cloudinary image uploads, and real-time chat with protected flows.",
+      "Full-stack pet matching: Tinder-style swipe matching with auto match creation, real-time 1:1 chat, image uploads, and protected routes.",
     image: `${BASE}/images/image5.jpg`,
-    stack: ["React", "TypeScript", "MongoDB", "Cloudinary"],
+    stack: ["Next.js", "TypeScript", "Socket.io", "MongoDB", "AWS S3"],
     links: [
       { label: "Frontend", href: "https://github.com/HyeonjunSon/petApp-frontend" },
       { label: "Backend", href: "https://github.com/HyeonjunSon/petApp-server" },
@@ -91,13 +106,30 @@ export default function Projects() {
               className="glass-card group flex flex-col rounded-xl overflow-hidden hover:-translate-y-1"
             >
               <div className="h-56 bg-surface-container overflow-hidden relative">
-                <img
-                  src={p.image}
-                  alt={p.title}
-                  loading="lazy"
-                  className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
-                />
+                {p.image ? (
+                  <img
+                    src={p.image}
+                    alt={p.title}
+                    loading="lazy"
+                    className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
+                  />
+                ) : (
+                  <div className="w-full h-full flex items-center justify-center bg-gradient-to-br from-surface-container-high to-surface-container-lowest">
+                    <span
+                      className="material-symbols-outlined text-secondary/70 text-7xl transition-transform duration-700 group-hover:scale-110"
+                      style={{ fontVariationSettings: "'FILL' 1" }}
+                    >
+                      {p.icon}
+                    </span>
+                  </div>
+                )}
                 <div className="absolute inset-0 bg-gradient-to-t from-surface-dim via-transparent to-transparent opacity-60" />
+                {p.badge && (
+                  <span className="absolute top-3 left-3 inline-flex items-center gap-1 font-label-caps text-label-caps uppercase text-secondary bg-surface/70 backdrop-blur px-3 py-1 rounded-full border border-secondary/30">
+                    <span className="h-1.5 w-1.5 rounded-full bg-secondary animate-pulse" />
+                    {p.badge}
+                  </span>
+                )}
               </div>
 
               <div className="p-stack-md flex flex-col flex-grow">
