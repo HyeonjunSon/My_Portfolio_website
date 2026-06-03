@@ -1,5 +1,5 @@
 // src/pages/Projects.js
-import React from "react";
+import React, { useEffect, useState } from "react";
 
 const BASE = process.env.PUBLIC_URL;
 
@@ -10,8 +10,7 @@ const projectData = [
     badge: "Live · iOS & Android",
     description:
       "Cross-platform community app for Koreans across Canada — school verification, group meetups, and a multi-board feed. Real-time chat (1:1, group rooms, school lounges) with push notifications.",
-    image: `${BASE}/images/image6.jpg`,
-    imageClass: "object-cover object-top",
+    gallery: [6, 7, 8, 9, 10, 11, 12].map((n) => `${BASE}/images/image${n}.jpg`),
     stack: ["React Native", "Expo", "Node.js", "MongoDB", "Socket.io"],
     links: [
       {
@@ -32,6 +31,7 @@ const projectData = [
     image: `${BASE}/images/image5.jpg`,
     stack: ["Next.js", "TypeScript", "Socket.io", "MongoDB", "AWS S3"],
     links: [
+      { label: "Live Site", icon: "language", href: "https://pet-app-frontend-fawn.vercel.app" },
       { label: "Frontend", icon: "code", href: "https://github.com/HyeonjunSon/petApp-frontend" },
       { label: "Backend", icon: "code", href: "https://github.com/HyeonjunSon/petApp-server" },
     ],
@@ -83,6 +83,69 @@ const projectData = [
   },
 ];
 
+function ImageCarousel({ images, alt }) {
+  const [i, setI] = useState(0);
+  const [paused, setPaused] = useState(false);
+  const n = images.length;
+  const go = (d) => setI((p) => (p + d + n) % n);
+
+  useEffect(() => {
+    if (paused || n <= 1) return;
+    const t = setInterval(() => setI((p) => (p + 1) % n), 2000);
+    return () => clearInterval(t);
+  }, [paused, n]);
+
+  return (
+    <div
+      className="relative w-full"
+      onMouseEnter={() => setPaused(true)}
+      onMouseLeave={() => setPaused(false)}
+    >
+      <div className="relative h-[320px] md:h-[440px] flex items-center justify-center">
+        {images.map((src, idx) => (
+          <img
+            key={src}
+            src={src}
+            alt={`${alt} screenshot ${idx + 1}`}
+            loading={idx === 0 ? "eager" : "lazy"}
+            className={`absolute max-h-full w-auto object-contain rounded-xl shadow-2xl ring-1 ring-white/10 transition-opacity duration-700 ${
+              idx === i ? "opacity-100" : "opacity-0 pointer-events-none"
+            }`}
+          />
+        ))}
+      </div>
+
+      <button
+        onClick={() => go(-1)}
+        aria-label="Previous screenshot"
+        className="absolute left-2 top-1/2 -translate-y-1/2 h-9 w-9 grid place-items-center rounded-full bg-surface/70 backdrop-blur border border-white/10 text-on-surface hover:border-secondary hover:text-secondary transition-colors"
+      >
+        <span className="material-symbols-outlined">chevron_left</span>
+      </button>
+      <button
+        onClick={() => go(1)}
+        aria-label="Next screenshot"
+        className="absolute right-2 top-1/2 -translate-y-1/2 h-9 w-9 grid place-items-center rounded-full bg-surface/70 backdrop-blur border border-white/10 text-on-surface hover:border-secondary hover:text-secondary transition-colors"
+      >
+        <span className="material-symbols-outlined">chevron_right</span>
+      </button>
+
+      <div className="absolute bottom-2 left-1/2 -translate-x-1/2 flex gap-1.5">
+        {images.map((src, idx) => (
+          <button
+            key={src}
+            onClick={() => setI(idx)}
+            aria-label={`Go to screenshot ${idx + 1}`}
+            className={`h-1.5 rounded-full transition-all ${
+              idx === i ? "w-5 bg-secondary" : "w-1.5 bg-white/30 hover:bg-white/60"
+            }`}
+          />
+        ))}
+      </div>
+    </div>
+  );
+}
+
 export default function Projects() {
   const [featured, ...rest] = projectData;
 
@@ -108,11 +171,7 @@ export default function Projects() {
       <section className="max-w-container-max mx-auto px-gutter mb-gutter">
         <div className="glass-card group rounded-xl overflow-hidden flex flex-col md:flex-row">
           <div className="md:w-2/5 relative flex items-center justify-center p-6 md:p-8 bg-gradient-to-br from-surface-container-high to-surface-container-lowest">
-            <img
-              src={featured.image}
-              alt={featured.title}
-              className="max-h-[300px] md:max-h-[420px] w-auto object-contain rounded-xl shadow-2xl ring-1 ring-white/10"
-            />
+            <ImageCarousel images={featured.gallery} alt={featured.title} />
             {featured.badge && (
               <span className="absolute top-4 left-4 inline-flex items-center gap-1 font-label-caps text-label-caps uppercase text-secondary bg-surface/70 backdrop-blur px-3 py-1 rounded-full border border-secondary/30">
                 <span className="h-1.5 w-1.5 rounded-full bg-secondary animate-pulse" />
