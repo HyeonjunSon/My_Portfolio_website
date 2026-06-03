@@ -7,15 +7,20 @@ const projectData = [
   {
     title: "CaMoim",
     icon: "groups",
-    badge: "Live on the App Store",
+    badge: "Live · iOS & Android",
     description:
       "Cross-platform community app for Koreans across Canada — school verification, group meetups, and a multi-board feed. Real-time chat (1:1, group rooms, school lounges) with push notifications.",
-    // image: `${BASE}/images/image6.jpg`, // add screenshot here
+    image: `${BASE}/images/image6.jpg`,
+    imageClass: "object-cover object-top",
     stack: ["React Native", "Expo", "Node.js", "MongoDB", "Socket.io"],
     links: [
       {
         label: "App Store",
         href: "https://apps.apple.com/ca/app/%EC%BA%90%EB%AA%A8%EC%9E%84-%EC%BA%90%EB%82%98%EB%8B%A4-%ED%95%9C%EC%9D%B8-%EB%AA%A8%EC%9E%84/id6763469709",
+      },
+      {
+        label: "Google Play",
+        href: "https://play.google.com/store/apps/details?id=com.hyeonjun122.cahanin",
       },
     ],
   },
@@ -27,8 +32,8 @@ const projectData = [
     image: `${BASE}/images/image5.jpg`,
     stack: ["Next.js", "TypeScript", "Socket.io", "MongoDB", "AWS S3"],
     links: [
-      { label: "Frontend", href: "https://github.com/HyeonjunSon/petApp-frontend" },
-      { label: "Backend", href: "https://github.com/HyeonjunSon/petApp-server" },
+      { label: "Frontend", icon: "code", href: "https://github.com/HyeonjunSon/petApp-frontend" },
+      { label: "Backend", icon: "code", href: "https://github.com/HyeonjunSon/petApp-server" },
     ],
   },
   {
@@ -39,8 +44,8 @@ const projectData = [
     image: `${BASE}/images/image4.jpg`,
     stack: ["React", "Tailwind", "MongoDB", "Auth"],
     links: [
-      { label: "Frontend", href: "https://github.com/HyeonjunSon/Board_project_front" },
-      { label: "Backend", href: "https://github.com/HyeonjunSon/Board_project_back" },
+      { label: "Frontend", icon: "code", href: "https://github.com/HyeonjunSon/Board_project_front" },
+      { label: "Backend", icon: "code", href: "https://github.com/HyeonjunSon/Board_project_back" },
     ],
   },
   {
@@ -51,7 +56,7 @@ const projectData = [
     image: `${BASE}/images/image1.jpg`,
     stack: ["HTML", "CSS", "Vanilla JS"],
     links: [
-      { label: "Code", href: "https://github.com/HyeonjunSon/Side_projects/tree/main/To_do_list" },
+      { label: "Code", icon: "code", href: "https://github.com/HyeonjunSon/Side_projects/tree/main/To_do_list" },
     ],
   },
   {
@@ -62,7 +67,7 @@ const projectData = [
     image: `${BASE}/images/image2.jpg`,
     stack: ["HTML", "CSS", "Vanilla JS"],
     links: [
-      { label: "Code", href: "https://github.com/HyeonjunSon/Side_projects/tree/main/Timer" },
+      { label: "Code", icon: "code", href: "https://github.com/HyeonjunSon/Side_projects/tree/main/Timer" },
     ],
   },
   {
@@ -73,7 +78,7 @@ const projectData = [
     image: `${BASE}/images/image3.jpg`,
     stack: ["HTML", "CSS", "Vanilla JS"],
     links: [
-      { label: "Code", href: "https://github.com/HyeonjunSon/Side_projects/tree/main/Calculator" },
+      { label: "Code", icon: "code", href: "https://github.com/HyeonjunSon/Side_projects/tree/main/Calculator" },
     ],
   },
 ];
@@ -111,7 +116,9 @@ export default function Projects() {
                     src={p.image}
                     alt={p.title}
                     loading="lazy"
-                    className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
+                    className={`w-full h-full transition-transform duration-700 group-hover:scale-105 ${
+                      p.imageClass || "object-cover object-center"
+                    }`}
                   />
                 ) : (
                   <div className="w-full h-full flex items-center justify-center bg-gradient-to-br from-surface-container-high to-surface-container-lowest">
@@ -160,7 +167,7 @@ export default function Projects() {
                   ))}
                 </div>
 
-                <div className="flex items-center gap-3">
+                <div className="flex flex-wrap items-center gap-3">
                   {p.links.map((l, idx) => (
                     <a
                       key={l.label}
@@ -169,17 +176,14 @@ export default function Projects() {
                       rel="noreferrer"
                       className={
                         idx === 0
-                          ? "flex-1 text-center py-3 bg-secondary text-on-secondary rounded-lg font-label-caps text-label-caps font-bold transition-all hover:shadow-[0_0_15px_rgba(93,230,255,0.4)]"
-                          : "flex items-center gap-1 px-4 py-3 border border-outline-variant text-on-surface hover:border-secondary hover:text-secondary rounded-lg transition-colors font-label-caps text-label-caps"
+                          ? "flex-1 min-w-[120px] flex items-center justify-center gap-1.5 py-3 bg-secondary text-on-secondary rounded-lg font-label-caps text-label-caps font-bold transition-all hover:shadow-[0_0_15px_rgba(93,230,255,0.4)]"
+                          : "flex items-center gap-1.5 px-4 py-3 border border-outline-variant text-on-surface hover:border-secondary hover:text-secondary rounded-lg transition-colors font-label-caps text-label-caps"
                       }
                     >
-                      {idx === 0 ? l.label.toUpperCase() : null}
-                      {idx !== 0 && (
-                        <>
-                          <span className="material-symbols-outlined text-base">code</span>
-                          {l.label}
-                        </>
+                      {l.icon && (
+                        <span className="material-symbols-outlined text-base">{l.icon}</span>
                       )}
+                      {l.label.toUpperCase()}
                     </a>
                   ))}
                 </div>
