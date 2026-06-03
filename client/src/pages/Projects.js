@@ -84,10 +84,12 @@ const projectData = [
 ];
 
 export default function Projects() {
+  const [featured, ...rest] = projectData;
+
   return (
     <main className="relative min-h-screen pt-16 pb-stack-lg bg-grid-pattern">
       {/* Hero */}
-      <header className="max-w-container-max mx-auto px-gutter mb-stack-lg pt-12">
+      <header className="max-w-container-max mx-auto px-gutter mb-stack-md pt-12">
         <div className="max-w-3xl">
           <p className="font-label-caps text-label-caps text-secondary uppercase tracking-widest mb-3">
             Portfolio
@@ -102,10 +104,70 @@ export default function Projects() {
         </div>
       </header>
 
+      {/* Featured project */}
+      <section className="max-w-container-max mx-auto px-gutter mb-gutter">
+        <div className="glass-card group rounded-xl overflow-hidden flex flex-col md:flex-row">
+          <div className="md:w-2/5 relative flex items-center justify-center p-6 md:p-8 bg-gradient-to-br from-surface-container-high to-surface-container-lowest">
+            <img
+              src={featured.image}
+              alt={featured.title}
+              className="max-h-[300px] md:max-h-[420px] w-auto object-contain rounded-xl shadow-2xl ring-1 ring-white/10"
+            />
+            {featured.badge && (
+              <span className="absolute top-4 left-4 inline-flex items-center gap-1 font-label-caps text-label-caps uppercase text-secondary bg-surface/70 backdrop-blur px-3 py-1 rounded-full border border-secondary/30">
+                <span className="h-1.5 w-1.5 rounded-full bg-secondary animate-pulse" />
+                {featured.badge}
+              </span>
+            )}
+          </div>
+          <div className="md:w-3/5 p-stack-md md:p-stack-lg flex flex-col justify-center">
+            <span className="font-label-caps text-label-caps text-secondary uppercase tracking-widest mb-2">
+              Featured Project
+            </span>
+            <h2 className="font-headline-md text-headline-md md:text-display-lg-mobile text-on-surface mb-3">
+              {featured.title}
+            </h2>
+            <p className="text-on-surface-variant font-body-md md:text-body-lg mb-6 max-w-xl">
+              {featured.description}
+            </p>
+            <div className="flex flex-wrap gap-2 mb-8">
+              {featured.stack.map((t) => (
+                <span
+                  key={t}
+                  className="font-label-caps text-label-caps px-3 py-1 bg-secondary/10 text-secondary rounded-full border border-secondary/20"
+                >
+                  {t}
+                </span>
+              ))}
+            </div>
+            <div className="flex flex-wrap items-center gap-3">
+              {featured.links.map((l, idx) => (
+                <a
+                  key={l.label}
+                  href={l.href}
+                  target="_blank"
+                  rel="noreferrer"
+                  className={
+                    idx === 0
+                      ? "flex items-center justify-center gap-1.5 px-6 py-3 bg-secondary text-on-secondary rounded-lg font-label-caps text-label-caps font-bold transition-all hover:shadow-[0_0_15px_rgba(93,230,255,0.4)]"
+                      : "flex items-center gap-1.5 px-6 py-3 border border-outline-variant text-on-surface hover:border-secondary hover:text-secondary rounded-lg transition-colors font-label-caps text-label-caps"
+                  }
+                >
+                  {l.icon && (
+                    <span className="material-symbols-outlined text-base">{l.icon}</span>
+                  )}
+                  {l.label.toUpperCase()}
+                </a>
+              ))}
+            </div>
+          </div>
+        </div>
+      </section>
+
       {/* Grid */}
       <section className="max-w-container-max mx-auto px-gutter">
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-gutter">
-          {projectData.map((p) => (
+          {rest.map((p) => (
             <div
               key={p.title}
               className="glass-card group flex flex-col rounded-xl overflow-hidden hover:-translate-y-1"
