@@ -191,16 +191,6 @@ export default function Home() {
                   APIs over REST &amp; GraphQL, with MongoDB and SQL data layers.
                 </p>
               </div>
-              <div className="mt-8 overflow-hidden rounded-lg bg-surface-container-lowest p-4 border border-white/5">
-                <pre className="font-code-sm text-code-sm text-secondary opacity-70 group-hover:opacity-100 transition-opacity overflow-x-auto">
-                  <code>{`async function getMatches(req, res) {
-  const matches = await Match
-    .find({ users: req.userId })
-    .sort({ createdAt: -1 });
-  return res.json({ ok: true, matches });
-}`}</code>
-                </pre>
-              </div>
             </div>
 
             {/* Shipped to production */}
