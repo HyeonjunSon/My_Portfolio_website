@@ -2,8 +2,6 @@
 import React, { useEffect, useRef } from "react";
 import { Link } from "react-router-dom";
 
-const BASE = process.env.PUBLIC_URL;
-
 const skillGroups = [
   { icon: "monitor", label: "Frontend", items: ["React", "React Native", "Next.js", "TypeScript", "Tailwind CSS"] },
   { icon: "dns", label: "Backend", items: ["Node.js", "Express", "Spring Boot", "REST", "GraphQL", "Socket.io"] },
@@ -158,7 +156,7 @@ export default function Home() {
               Selected Focus Areas
             </h2>
             <p className="text-on-surface-variant font-body-md mt-2">
-              Merging engineering precision with a clear, dependable UI.
+              From shipped mobile apps to tested, production-ready full-stack systems.
             </p>
           </div>
 
@@ -174,7 +172,7 @@ export default function Home() {
                     terminal
                   </span>
                   <div className="flex gap-2 flex-wrap justify-end">
-                    {["React", "TypeScript", "Node.js"].map((t) => (
+                    {["React", "Next.js", "Node.js", "Spring Boot", "GraphQL"].map((t) => (
                       <span
                         key={t}
                         className="font-label-caps text-label-caps bg-surface-variant px-3 py-1 rounded"
@@ -188,46 +186,43 @@ export default function Home() {
                   Full-Stack Engineering
                 </h3>
                 <p className="text-on-surface-variant font-body-md max-w-lg">
-                  Building responsive React frontends backed by clean REST APIs —
-                  with a focus on performance, readable code, and a dependable
-                  user experience.
+                  I build complete products end to end — responsive React &amp;
+                  Next.js frontends backed by Node.js, Express, and Spring Boot
+                  APIs over REST &amp; GraphQL, with MongoDB and SQL data layers.
                 </p>
               </div>
               <div className="mt-8 overflow-hidden rounded-lg bg-surface-container-lowest p-4 border border-white/5">
                 <pre className="font-code-sm text-code-sm text-secondary opacity-70 group-hover:opacity-100 transition-opacity overflow-x-auto">
-                  <code>{`const buildUI = (data) =>
-  data.map((item) => ({
-    ...item,
-    clarity: 'maximum',
-    performance: 'optimized',
-  }));`}</code>
+                  <code>{`async function getMatches(req, res) {
+  const matches = await Match
+    .find({ users: req.userId })
+    .sort({ createdAt: -1 });
+  return res.json({ ok: true, matches });
+}`}</code>
                 </pre>
               </div>
             </div>
 
-            {/* Featured project */}
-            <div className="md:col-span-4 glass-card rounded-xl overflow-hidden flex flex-col group">
-              <div className="h-40 overflow-hidden bg-surface-container relative">
-                <img
-                  src={`${BASE}/images/image5.jpg`}
-                  alt="PetDate"
-                  className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700"
-                />
-                <div className="absolute inset-0 bg-gradient-to-t from-surface-dim via-transparent to-transparent opacity-70" />
-              </div>
-              <div className="p-6 flex flex-col flex-1">
-                <span className="font-label-caps text-label-caps text-secondary mb-1">
-                  FEATURED PROJECT
-                </span>
+            {/* Shipped to production */}
+            <div className="md:col-span-4 glass-card p-8 rounded-xl flex flex-col justify-between group">
+              <span
+                className="material-symbols-outlined text-secondary text-4xl mb-4"
+                style={{ fontVariationSettings: "'FILL' 1" }}
+              >
+                rocket_launch
+              </span>
+              <div>
                 <h3 className="font-headline-md text-headline-md mb-2 text-on-surface">
-                  PetDate
+                  Shipped to Production
                 </h3>
-                <p className="text-on-surface-variant font-body-md flex-1">
-                  Full-stack pet matching with image uploads and real-time chat.
+                <p className="text-on-surface-variant font-body-md">
+                  Real apps with real users — CaMoim is live on the App Store &amp;
+                  Google Play, with full-stack projects deployed to Vercel, Heroku,
+                  and Railway.
                 </p>
                 <Link
                   to="/projects"
-                  className="flex items-center gap-2 mt-4 text-secondary font-label-caps text-label-caps hover:gap-3 transition-all"
+                  className="inline-flex items-center gap-2 mt-4 text-secondary font-label-caps text-label-caps hover:gap-3 transition-all"
                 >
                   EXPLORE WORK
                   <span className="material-symbols-outlined text-base">arrow_forward</span>
@@ -235,37 +230,60 @@ export default function Home() {
               </div>
             </div>
 
-            {/* UX card */}
+            {/* Real-time */}
             <div className="md:col-span-4 glass-card p-8 rounded-xl flex flex-col justify-between">
-              <span className="material-symbols-outlined text-secondary text-4xl mb-4">
-                auto_awesome
+              <span
+                className="material-symbols-outlined text-secondary text-4xl mb-4"
+                style={{ fontVariationSettings: "'FILL' 1" }}
+              >
+                bolt
               </span>
               <div>
                 <h3 className="font-headline-md text-headline-md mb-2 text-on-surface">
-                  UI / UX Detail
+                  Real-Time Features
                 </h3>
                 <p className="text-on-surface-variant font-body-md">
-                  Crafting intuitive interfaces with the small details that make
-                  apps pleasant to use every day.
+                  Live 1:1 and group chat with Socket.io — socket auth middleware,
+                  per-room authorization, unread badges, and push notifications.
                 </p>
               </div>
             </div>
 
-            {/* Always learning */}
-            <div className="md:col-span-8 glass-card p-8 rounded-xl flex flex-col md:flex-row items-start md:items-center gap-6">
+            {/* Cross-platform mobile */}
+            <div className="md:col-span-4 glass-card p-8 rounded-xl flex flex-col justify-between">
               <span
-                className="material-symbols-outlined text-secondary text-5xl"
+                className="material-symbols-outlined text-secondary text-4xl mb-4"
                 style={{ fontVariationSettings: "'FILL' 1" }}
               >
-                rocket_launch
+                smartphone
               </span>
               <div>
                 <h3 className="font-headline-md text-headline-md mb-2 text-on-surface">
-                  Always Shipping & Learning
+                  Cross-Platform Mobile
                 </h3>
                 <p className="text-on-surface-variant font-body-md">
-                  From side projects to full-stack apps, I keep building — turning
-                  ideas into working products and sharpening my craft along the way.
+                  React Native + Expo apps running on iOS and Android from one
+                  codebase, with maps, GPS tracking, and offline-friendly state.
+                </p>
+              </div>
+            </div>
+
+            {/* Tested & reliable */}
+            <div className="md:col-span-4 glass-card p-8 rounded-xl flex flex-col justify-between">
+              <span
+                className="material-symbols-outlined text-secondary text-4xl mb-4"
+                style={{ fontVariationSettings: "'FILL' 1" }}
+              >
+                verified
+              </span>
+              <div>
+                <h3 className="font-headline-md text-headline-md mb-2 text-on-surface">
+                  Tested &amp; Reliable
+                </h3>
+                <p className="text-on-surface-variant font-body-md">
+                  Quality-minded: 40+ unit tests with Vitest, React Testing Library,
+                  and JUnit, plus root-cause debugging in a production fintech
+                  codebase.
                 </p>
               </div>
             </div>
