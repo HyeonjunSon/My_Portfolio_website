@@ -5,19 +5,19 @@ import { Link } from "react-router-dom";
 const BASE = process.env.PUBLIC_URL;
 
 const skillGroups = [
-  { icon: "monitor", label: "Frontend", items: ["React", "React Native", "TypeScript", "Tailwind CSS", "HTML5 / CSS3"] },
-  { icon: "dns", label: "Backend", items: ["Node.js", "Express", "REST APIs", "Auth / JWT"] },
-  { icon: "database", label: "Data", items: ["MongoDB", "SQL / MySQL", "Cloudinary"] },
-  { icon: "build", label: "Tooling", items: ["Git / GitHub", "Vercel", "Vite", "Jest"] },
+  { icon: "monitor", label: "Frontend", items: ["React", "React Native", "Next.js", "TypeScript", "Tailwind CSS"] },
+  { icon: "dns", label: "Backend", items: ["Node.js", "Express", "Spring Boot", "REST", "GraphQL", "Socket.io"] },
+  { icon: "code", label: "Languages & Data", items: ["JavaScript", "Java", "Python", "C / C++", "MongoDB", "MySQL"] },
+  { icon: "cloud", label: "Cloud & Tools", items: ["AWS S3", "Docker", "Vercel", "Git", "Jest", "Vitest"] },
 ];
 
 function useTypingEffect(ref) {
   useEffect(() => {
     const phrases = [
       "Full-Stack Developer",
-      "React & React Native",
-      "Problem Solver",
-      "Lifelong Learner",
+      "React · Next.js · React Native",
+      "Node.js · Spring Boot",
+      "App Store Published Dev",
     ];
     let phraseIndex = 0;
     let charIndex = 0;
