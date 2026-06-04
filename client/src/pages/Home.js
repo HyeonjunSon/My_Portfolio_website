@@ -9,6 +9,53 @@ const skillGroups = [
   { icon: "cloud", label: "Cloud & Tools", items: ["AWS S3", "Docker", "Vercel", "Git", "Jest", "Vitest"] },
 ];
 
+const heroStats = [
+  { value: "6+", label: "Projects shipped" },
+  { value: "2", label: "Apps live" },
+  { value: "3", label: "Platforms" },
+  { value: "10+", label: "Technologies" },
+];
+
+const focusAreas = [
+  {
+    icon: "terminal",
+    title: "Full-Stack Engineering",
+    blurb: "End-to-end products — polished React & Next.js frontends on Node, Express, and Spring Boot APIs.",
+    tags: ["React", "Next.js", "Node.js", "Spring Boot", "GraphQL"],
+    span: "md:col-span-8",
+    featured: true,
+  },
+  {
+    icon: "rocket_launch",
+    title: "Shipped to Production",
+    blurb: "Real apps with real users. CaMoim is live on the App Store & Google Play.",
+    tags: ["App Store", "Google Play", "Vercel"],
+    span: "md:col-span-4",
+    link: { to: "/projects", label: "Explore work" },
+  },
+  {
+    icon: "bolt",
+    title: "Real-Time Features",
+    blurb: "Socket.io chat with auth middleware, per-room access, unread badges, and push.",
+    tags: ["Socket.io", "WebSockets", "Push"],
+    span: "md:col-span-4",
+  },
+  {
+    icon: "smartphone",
+    title: "Cross-Platform Mobile",
+    blurb: "One React Native + Expo codebase shipping to both iOS and Android.",
+    tags: ["React Native", "Expo", "iOS · Android"],
+    span: "md:col-span-4",
+  },
+  {
+    icon: "verified",
+    title: "Tested & Reliable",
+    blurb: "40+ tests with Vitest, RTL, and JUnit plus root-cause debugging in fintech.",
+    tags: ["Vitest", "RTL", "JUnit"],
+    span: "md:col-span-4",
+  },
+];
+
 function useTypingEffect(ref) {
   useEffect(() => {
     const phrases = [
@@ -142,6 +189,23 @@ export default function Home() {
               Contact Me
             </Link>
           </div>
+
+          {/* Stats strip */}
+          <div className="mt-16 grid grid-cols-2 sm:grid-cols-4 gap-px max-w-3xl mx-auto rounded-xl overflow-hidden border border-outline-variant/40 bg-outline-variant/20">
+            {heroStats.map((s) => (
+              <div
+                key={s.label}
+                className="bg-surface-container-lowest/70 backdrop-blur px-4 py-7 flex flex-col items-center justify-center gap-2"
+              >
+                <div className="font-display-lg text-4xl md:text-5xl font-bold text-secondary leading-none">
+                  {s.value}
+                </div>
+                <div className="font-label-caps text-label-caps text-on-surface-variant whitespace-nowrap">
+                  {s.label}
+                </div>
+              </div>
+            ))}
+          </div>
         </div>
       </section>
 
@@ -149,8 +213,8 @@ export default function Home() {
       <section className="py-stack-lg bg-surface-container-lowest">
         <div className="max-w-container-max mx-auto px-gutter">
           <div className="mb-stack-md">
-            <p className="font-label-caps text-label-caps text-secondary uppercase tracking-widest mb-2">
-              What I Do
+            <p className="font-code-sm text-label-caps text-secondary uppercase tracking-widest mb-2">
+              // what i do
             </p>
             <h2 className="font-headline-md text-headline-md text-on-surface">
               Selected Focus Areas
@@ -161,122 +225,66 @@ export default function Home() {
           </div>
 
           <div className="grid grid-cols-1 md:grid-cols-12 gap-gutter">
-            {/* Architecture */}
-            <div className="md:col-span-8 glass-card p-8 rounded-xl flex flex-col justify-between group">
-              <div>
-                <div className="flex justify-between items-start mb-6">
-                  <span
-                    className="material-symbols-outlined text-secondary text-4xl"
-                    style={{ fontVariationSettings: "'FILL' 1" }}
-                  >
-                    terminal
+            {focusAreas.map((a) => (
+              <div
+                key={a.title}
+                className={`${a.span} glass-card rounded-xl p-7 flex flex-col group hover:-translate-y-1 hover:border-secondary/40 transition-all duration-300`}
+              >
+                <div className="flex items-start justify-between gap-4 mb-6">
+                  <span className="h-12 w-12 shrink-0 grid place-items-center rounded-xl bg-secondary/10 ring-1 ring-secondary/20 text-secondary group-hover:bg-secondary/20 transition-colors">
+                    <span
+                      className="material-symbols-outlined text-2xl"
+                      style={{ fontVariationSettings: "'FILL' 1" }}
+                    >
+                      {a.icon}
+                    </span>
                   </span>
-                  <div className="flex gap-2 flex-wrap justify-end">
-                    {["React", "Next.js", "Node.js", "Spring Boot", "GraphQL"].map((t) => (
-                      <span
-                        key={t}
-                        className="font-label-caps text-label-caps bg-surface-variant px-3 py-1 rounded"
-                      >
-                        {t}
-                      </span>
-                    ))}
-                  </div>
+                  {a.featured && (
+                    <div className="hidden sm:flex flex-wrap gap-1.5 justify-end max-w-[60%]">
+                      {a.tags.map((t) => (
+                        <span
+                          key={t}
+                          className="font-label-caps text-label-caps text-secondary/90 bg-secondary/10 border border-secondary/20 px-2.5 py-1 rounded-full"
+                        >
+                          {t}
+                        </span>
+                      ))}
+                    </div>
+                  )}
                 </div>
-                <h3 className="font-headline-md text-headline-md mb-2 text-on-surface">
-                  Full-Stack Engineering
-                </h3>
-                <p className="text-on-surface-variant font-body-md max-w-lg">
-                  I build complete products end to end responsive React &amp;
-                  Next.js frontends backed by Node.js, Express, and Spring Boot
-                  APIs over REST &amp; GraphQL, with MongoDB and SQL data layers.
-                </p>
-              </div>
-            </div>
 
-            {/* Shipped to production */}
-            <div className="md:col-span-4 glass-card p-8 rounded-xl flex flex-col justify-between group">
-              <span
-                className="material-symbols-outlined text-secondary text-4xl mb-4"
-                style={{ fontVariationSettings: "'FILL' 1" }}
-              >
-                rocket_launch
-              </span>
-              <div>
-                <h3 className="font-headline-md text-headline-md mb-2 text-on-surface">
-                  Shipped to Production
+                <h3 className="font-headline-md text-headline-md text-on-surface mb-2">
+                  {a.title}
                 </h3>
-                <p className="text-on-surface-variant font-body-md">
-                  Real apps with real users — CaMoim is live on the App Store &amp;
-                  Google Play, with full-stack projects deployed to Vercel, Heroku,
-                  and Railway.
+                <p className="text-on-surface-variant font-body-md leading-relaxed max-w-xl">
+                  {a.blurb}
                 </p>
-                <Link
-                  to="/projects"
-                  className="inline-flex items-center gap-2 mt-4 text-secondary font-label-caps text-label-caps hover:gap-3 transition-all"
-                >
-                  EXPLORE WORK
-                  <span className="material-symbols-outlined text-base">arrow_forward</span>
-                </Link>
-              </div>
-            </div>
 
-            {/* Real-time */}
-            <div className="md:col-span-4 glass-card p-8 rounded-xl flex flex-col justify-between">
-              <span
-                className="material-symbols-outlined text-secondary text-4xl mb-4"
-                style={{ fontVariationSettings: "'FILL' 1" }}
-              >
-                bolt
-              </span>
-              <div>
-                <h3 className="font-headline-md text-headline-md mb-2 text-on-surface">
-                  Real-Time Features
-                </h3>
-                <p className="text-on-surface-variant font-body-md">
-                  Live 1:1 and group chat with Socket.io — socket auth middleware,
-                  per-room authorization, unread badges, and push notifications.
-                </p>
+                {!a.featured && (
+                  <div className="mt-auto pt-6 flex flex-col gap-4">
+                    <div className="flex flex-wrap gap-1.5">
+                      {a.tags.map((t) => (
+                        <span
+                          key={t}
+                          className="font-label-caps text-label-caps text-on-surface-variant/80 bg-surface-variant/60 px-2.5 py-1 rounded-full"
+                        >
+                          {t}
+                        </span>
+                      ))}
+                    </div>
+                    {a.link && (
+                      <Link
+                        to={a.link.to}
+                        className="inline-flex items-center gap-2 text-secondary font-label-caps text-label-caps hover:gap-3 transition-all"
+                      >
+                        {a.link.label.toUpperCase()}
+                        <span className="material-symbols-outlined text-base">arrow_forward</span>
+                      </Link>
+                    )}
+                  </div>
+                )}
               </div>
-            </div>
-
-            {/* Cross-platform mobile */}
-            <div className="md:col-span-4 glass-card p-8 rounded-xl flex flex-col justify-between">
-              <span
-                className="material-symbols-outlined text-secondary text-4xl mb-4"
-                style={{ fontVariationSettings: "'FILL' 1" }}
-              >
-                smartphone
-              </span>
-              <div>
-                <h3 className="font-headline-md text-headline-md mb-2 text-on-surface">
-                  Cross-Platform Mobile
-                </h3>
-                <p className="text-on-surface-variant font-body-md">
-                  React Native + Expo apps running on iOS and Android from one
-                  codebase, with maps, GPS tracking, and offline-friendly state.
-                </p>
-              </div>
-            </div>
-
-            {/* Tested & reliable */}
-            <div className="md:col-span-4 glass-card p-8 rounded-xl flex flex-col justify-between">
-              <span
-                className="material-symbols-outlined text-secondary text-4xl mb-4"
-                style={{ fontVariationSettings: "'FILL' 1" }}
-              >
-                verified
-              </span>
-              <div>
-                <h3 className="font-headline-md text-headline-md mb-2 text-on-surface">
-                  Tested &amp; Reliable
-                </h3>
-                <p className="text-on-surface-variant font-body-md">
-                  Quality-minded: 40+ unit tests with Vitest, React Testing Library,
-                  and JUnit, plus root-cause debugging in a production fintech
-                  codebase.
-                </p>
-              </div>
-            </div>
+            ))}
           </div>
         </div>
       </section>
@@ -285,8 +293,8 @@ export default function Home() {
       <section className="py-stack-lg">
         <div className="max-w-container-max mx-auto px-gutter">
           <div className="mb-stack-md">
-            <p className="font-label-caps text-label-caps text-secondary uppercase tracking-widest mb-2">
-              Toolbox
+            <p className="font-code-sm text-label-caps text-secondary uppercase tracking-widest mb-2">
+              // toolbox
             </p>
             <h2 className="font-headline-md text-headline-md text-on-surface">
               Skills &amp; Tools
