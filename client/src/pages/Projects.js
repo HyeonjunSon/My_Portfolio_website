@@ -9,7 +9,7 @@ const projectData = [
     icon: "groups",
     badge: "Live · iOS & Android",
     description:
-      "Cross-platform community app for Koreans across Canada — school verification, group meetups, and a multi-board feed. Real-time chat (1:1, group rooms, school lounges) with push notifications.",
+      "Cross-platform community app for Koreans across Canada school verification, group meetups, and a multi board feed. Real-time chat (1:1, group rooms, school lounges) with push notifications.",
     gallery: [6, 7, 8, 9, 10, 11, 12].map((n) => `${BASE}/images/image${n}.jpg`),
     stack: ["React Native", "Expo", "Node.js", "MongoDB", "Socket.io"],
     links: [
@@ -288,18 +288,18 @@ export default function Projects() {
                   ))}
                 </div>
 
-                <div className="flex flex-wrap items-center gap-3">
+                <div className="flex flex-wrap items-stretch gap-2">
                   {p.links.map((l, idx) => (
                     <a
                       key={l.label}
                       href={l.href}
                       target="_blank"
                       rel="noreferrer"
-                      className={
+                      className={`flex-1 basis-[110px] min-w-[110px] flex items-center justify-center gap-1.5 px-3 py-3 rounded-lg font-label-caps text-label-caps transition-all ${
                         idx === 0
-                          ? "flex-1 min-w-[120px] flex items-center justify-center gap-1.5 py-3 bg-secondary text-on-secondary rounded-lg font-label-caps text-label-caps font-bold transition-all hover:shadow-[0_0_15px_rgba(93,230,255,0.4)]"
-                          : "flex items-center gap-1.5 px-4 py-3 border border-outline-variant text-on-surface hover:border-secondary hover:text-secondary rounded-lg transition-colors font-label-caps text-label-caps"
-                      }
+                          ? "bg-secondary text-on-secondary font-bold hover:shadow-[0_0_15px_rgba(93,230,255,0.4)]"
+                          : "border border-outline-variant text-on-surface hover:border-secondary hover:text-secondary"
+                      }`}
                     >
                       {l.icon && (
                         <span className="material-symbols-outlined text-base">{l.icon}</span>

@@ -186,7 +186,7 @@ export default function Home() {
                   Full-Stack Engineering
                 </h3>
                 <p className="text-on-surface-variant font-body-md max-w-lg">
-                  I build complete products end to end — responsive React &amp;
+                  I build complete products end to end responsive React &amp;
                   Next.js frontends backed by Node.js, Express, and Spring Boot
                   APIs over REST &amp; GraphQL, with MongoDB and SQL data layers.
                 </p>
