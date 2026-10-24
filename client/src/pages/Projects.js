@@ -16,8 +16,11 @@ const projectData = [
       ["Backend", "Node.js/Express + MongoDB shared by both clients. Cut home-feed API latency 60% in benchmarks by removing sequential database round trips."],
       ["Quality", "153 Jest tests plus Maestro E2E; GitHub Actions runs client, server, and web (typecheck, test, build) on every push."],
     ],
-    gallery: [6, 7, 8, 9, 10, 11, 12].map((n) => `${BASE}/images/image${n}.jpg`),
-    stack: ["React Native", "Expo", "Next.js", "TypeScript", "Node.js", "MongoDB", "Socket.io"],
+    galleries: [
+      { label: "App", images: [6, 7, 8, 9, 10, 11, 12].map((n) => `${BASE}/images/image${n}.jpg`) },
+      { label: "Web", images: [1, 2].map((n) => `${BASE}/images/camoim-web${n}.jpg`), wide: true },
+    ],
+    stack: ["TypeScript", "React Native", "Expo", "Next.js", "Node.js", "MongoDB", "Socket.io"],
     links: [
       { label: "Website", icon: "language", href: "https://camoimapp.com" },
       {
@@ -151,11 +154,30 @@ function ImageCarousel({ images, alt, wide }) {
 }
 
 function FeatureCard({ project: p, label, reverse }) {
+  const galleries = p.galleries || [{ images: p.gallery, wide: p.wide }];
+  const [tab, setTab] = useState(0);
+  const g = galleries[tab];
+
   return (
     <div className={`glass-card group rounded-xl overflow-hidden flex flex-col ${reverse ? "md:flex-row-reverse" : "md:flex-row"}`}>
-      <div className="md:w-2/5 relative flex items-center justify-center p-6 md:p-8 bg-gradient-to-br from-surface-container-high to-surface-container-lowest">
-        {p.gallery ? (
-          <ImageCarousel images={p.gallery} alt={p.title} wide={p.wide} />
+      <div className={`md:w-2/5 relative flex items-center justify-center p-6 md:p-8 ${galleries.length > 1 ? "pt-24" : ""} bg-gradient-to-br from-surface-container-high to-surface-container-lowest`}>
+        {galleries.length > 1 && (
+          <div className="absolute top-14 md:top-4 right-4 z-10 flex rounded-full border border-white/10 bg-surface/70 backdrop-blur p-0.5">
+            {galleries.map((x, idx) => (
+              <button
+                key={x.label}
+                onClick={() => setTab(idx)}
+                className={`px-3 py-1 rounded-full font-label-caps text-label-caps uppercase transition-colors ${
+                  idx === tab ? "bg-secondary text-on-secondary" : "text-on-surface-variant hover:text-secondary"
+                }`}
+              >
+                {x.label}
+              </button>
+            ))}
+          </div>
+        )}
+        {g.images ? (
+          <ImageCarousel key={tab} images={g.images} alt={p.title} wide={g.wide} />
         ) : (
           <img
             src={p.image}
