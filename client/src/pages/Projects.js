@@ -9,9 +9,15 @@ const projectData = [
     icon: "groups",
     badge: "Live · iOS, Android & Web",
     description:
-      "Community app serving 500+ registered users across Canada: school verification, group meetups, and a multi-board feed, with real-time chat (1:1, group rooms, school lounges) and push notifications. Cut home-feed API latency 60% in benchmarks by removing sequential database round trips; covered by 153 Jest tests plus Maestro E2E in CI. A Next.js web client shares the same API.",
+      "Community platform for Koreans across Canada, serving 500+ registered users on mobile and web: school verification, group meetups, and a multi-board feed.",
+    highlights: [
+      ["Mobile", "React Native + Expo app on iOS and Android with real-time Socket.io chat (1:1, group rooms, school lounges) and push notifications."],
+      ["Web", "Next.js + TypeScript client at camoimapp.com. An httpOnly-cookie BFF keeps the JWT out of browser JavaScript; sanitized rich-text posts and live chat."],
+      ["Backend", "Node.js/Express + MongoDB shared by both clients. Cut home-feed API latency 60% in benchmarks by removing sequential database round trips."],
+      ["Quality", "153 Jest tests plus Maestro E2E; GitHub Actions runs client, server, and web (typecheck, test, build) on every push."],
+    ],
     gallery: [6, 7, 8, 9, 10, 11, 12].map((n) => `${BASE}/images/image${n}.jpg`),
-    stack: ["React Native", "Expo", "Next.js", "Node.js", "MongoDB", "Socket.io"],
+    stack: ["React Native", "Expo", "Next.js", "TypeScript", "Node.js", "MongoDB", "Socket.io"],
     links: [
       { label: "Website", icon: "language", href: "https://camoimapp.com" },
       {
@@ -175,6 +181,18 @@ function FeatureCard({ project: p, label, reverse }) {
         <p className="text-on-surface-variant font-body-md md:text-body-lg mb-6 max-w-xl">
           {p.description}
         </p>
+        {p.highlights && (
+          <ul className="mb-6 max-w-xl space-y-3">
+            {p.highlights.map(([label, text]) => (
+              <li key={label} className="flex gap-3 text-on-surface-variant font-body-md">
+                <span className="shrink-0 w-[72px] pt-0.5 font-label-caps text-label-caps text-secondary uppercase">
+                  {label}
+                </span>
+                <span>{text}</span>
+              </li>
+            ))}
+          </ul>
+        )}
         <div className="flex flex-wrap gap-2 mb-8">
           {p.stack.map((t) => (
             <span
