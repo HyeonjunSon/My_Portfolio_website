@@ -3,17 +3,17 @@ import React, { useEffect, useRef } from "react";
 import { Link } from "react-router-dom";
 
 const skillGroups = [
-  { icon: "monitor", label: "Frontend", items: ["React", "React Native", "Next.js", "TypeScript", "Tailwind CSS"] },
+  { icon: "monitor", label: "Frontend", items: ["React", "React Native", "Next.js", "Redux", "Zustand", "Tailwind CSS"] },
   { icon: "dns", label: "Backend", items: ["Node.js", "Express", "Spring Boot", "REST", "GraphQL", "Socket.io"] },
-  { icon: "code", label: "Languages & Data", items: ["JavaScript", "Java", "Python", "C / C++", "MongoDB", "MySQL"] },
-  { icon: "cloud", label: "Cloud & Tools", items: ["AWS S3", "Docker", "Vercel", "Git", "Jest", "Vitest"] },
+  { icon: "code", label: "Languages & Data", items: ["JavaScript", "TypeScript", "Java", "SQL", "MongoDB", "PostgreSQL"] },
+  { icon: "cloud", label: "Testing & DevOps", items: ["Jest", "Vitest", "Playwright", "GitHub Actions", "Docker", "AWS S3"] },
 ];
 
 const heroStats = [
-  { value: "6+", label: "Projects shipped" },
-  { value: "2", label: "Apps live" },
-  { value: "3", label: "Platforms" },
-  { value: "10+", label: "Technologies" },
+  { value: "500+", label: "Registered users" },
+  { value: "3", label: "Platforms live" },
+  { value: "60%", label: "Latency cut" },
+  { value: "150+", label: "Automated tests" },
 ];
 
 const focusAreas = [
@@ -28,30 +28,30 @@ const focusAreas = [
   {
     icon: "rocket_launch",
     title: "Shipped to Production",
-    blurb: "Real apps with real users. CaMoim is live on the App Store & Google Play.",
-    tags: ["App Store", "Google Play", "Vercel"],
+    blurb: "Real apps with real users. CaMoim serves 500+ registered users on the App Store, Google Play, and the web.",
+    tags: ["App Store", "Google Play", "camoimapp.com"],
     span: "md:col-span-4",
     link: { to: "/projects", label: "Explore work" },
   },
   {
     icon: "bolt",
     title: "Real-Time Features",
-    blurb: "Socket.io chat with auth middleware, per-room access, unread badges, and push.",
+    blurb: "Socket.io chat with JWT handshake auth, per-room access, atomic unread counts, and push.",
     tags: ["Socket.io", "WebSockets", "Push"],
     span: "md:col-span-4",
   },
   {
-    icon: "smartphone",
-    title: "Cross-Platform Mobile",
-    blurb: "One React Native + Expo codebase shipping to both iOS and Android.",
-    tags: ["React Native", "Expo", "iOS · Android"],
+    icon: "speed",
+    title: "Measured Performance",
+    blurb: "Traced a 70 ms cross-region DB round trip and cut home-feed latency 60%; trimmed the app bundle 24.5%.",
+    tags: ["Benchmarks", "MongoDB", "Bundle size"],
     span: "md:col-span-4",
   },
   {
     icon: "verified",
     title: "Tested & Reliable",
-    blurb: "40+ tests with Vitest, RTL, and JUnit plus root-cause debugging in fintech.",
-    tags: ["Vitest", "RTL", "JUnit"],
+    blurb: "153 tests and Maestro E2E on CaMoim, 40+ Vitest/RTL/JUnit tests and root-cause debugging in fintech.",
+    tags: ["Jest", "Vitest", "Maestro", "JUnit"],
     span: "md:col-span-4",
   },
 ];

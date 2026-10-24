@@ -7,12 +7,13 @@ const projectData = [
   {
     title: "CaMoim",
     icon: "groups",
-    badge: "Live · iOS & Android",
+    badge: "Live · iOS, Android & Web",
     description:
-      "Cross-platform community app for Koreans across Canada school verification, group meetups, and a multi board feed. Real-time chat (1:1, group rooms, school lounges) with push notifications.",
+      "Community app serving 500+ registered users across Canada: school verification, group meetups, and a multi-board feed, with real-time chat (1:1, group rooms, school lounges) and push notifications. Cut home-feed API latency 60% in benchmarks by removing sequential database round trips; covered by 153 Jest tests plus Maestro E2E in CI. A Next.js web client shares the same API.",
     gallery: [6, 7, 8, 9, 10, 11, 12].map((n) => `${BASE}/images/image${n}.jpg`),
-    stack: ["React Native", "Expo", "Node.js", "MongoDB", "Socket.io"],
+    stack: ["React Native", "Expo", "Next.js", "Node.js", "MongoDB", "Socket.io"],
     links: [
+      { label: "Website", icon: "language", href: "https://camoimapp.com" },
       {
         label: "App Store",
         href: "https://apps.apple.com/ca/app/%EC%BA%90%EB%AA%A8%EC%9E%84-%EC%BA%90%EB%82%98%EB%8B%A4-%ED%95%9C%EC%9D%B8-%EB%AA%A8%EC%9E%84/id6763469709",
@@ -21,64 +22,60 @@ const projectData = [
         label: "Google Play",
         href: "https://play.google.com/store/apps/details?id=com.hyeonjun122.cahanin",
       },
+      { label: "Code", icon: "code", href: "https://github.com/HyeonjunSon/camoim" },
     ],
   },
   {
-    title: "PetDate",
+    title: "Offleash",
     icon: "pets",
     description:
-      "Full-stack pet matching: Tinder-style swipe matching with auto match creation, real-time 1:1 chat, image uploads, and protected routes.",
+      "Neighbourhood dog-owner community: nearby dogs sorted by real distance (MongoDB geospatial), mutual-like matching, map-based walk planning, and real-time chat. Stripe subscriptions via idempotent, signature-verified webhooks; 39 API tests plus Playwright E2E.",
     image: `${BASE}/images/image5.jpg`,
-    stack: ["Next.js", "TypeScript", "Socket.io", "MongoDB", "AWS S3"],
+    stack: ["Next.js", "TypeScript", "Express", "MongoDB", "PostgreSQL", "Stripe"],
     links: [
       { label: "Live Site", icon: "language", href: "https://pet-app-frontend-fawn.vercel.app" },
       { label: "Frontend", icon: "code", href: "https://github.com/HyeonjunSon/petApp-frontend" },
       { label: "Backend", icon: "code", href: "https://github.com/HyeonjunSon/petApp-server" },
     ],
   },
+];
+
+const learningProjects = [
   {
     title: "Board Website",
     icon: "forum",
-    description:
-      "Authentication, posts, and comments on clean REST patterns with guarded routes and basic moderation tools.",
-    image: `${BASE}/images/image4.jpg`,
-    stack: ["React", "Tailwind", "MongoDB", "Auth"],
+    description: "Auth, posts, and comments on REST patterns with guarded routes.",
+    stack: ["React", "MongoDB", "Auth"],
     links: [
-      { label: "Frontend", icon: "code", href: "https://github.com/HyeonjunSon/Board_project_front" },
-      { label: "Backend", icon: "code", href: "https://github.com/HyeonjunSon/Board_project_back" },
+      { label: "Frontend", href: "https://github.com/HyeonjunSon/Board_project_front" },
+      { label: "Backend", href: "https://github.com/HyeonjunSon/Board_project_back" },
     ],
   },
   {
     title: "Weekly To-Do List",
     icon: "checklist",
-    description:
-      "Weekly board with quick add and drag-and-drop between days. Click to toggle completion; lightweight planning UI.",
-    image: `${BASE}/images/image1.jpg`,
+    description: "Weekly board with quick add and drag-and-drop between days.",
     stack: ["HTML", "CSS", "Vanilla JS"],
     links: [
-      { label: "Code", icon: "code", href: "https://github.com/HyeonjunSon/Side_projects/tree/main/To_do_list" },
+      { label: "Code", href: "https://github.com/HyeonjunSon/Side_projects/tree/main/To_do_list" },
     ],
   },
   {
     title: "Timer",
     icon: "timer",
-    description:
-      "Countdown with start/pause/resume/reset, named presets, sound toggle, and a history log. Warns in the last 10s.",
-    image: `${BASE}/images/image2.jpg`,
+    description: "Countdown with presets, sound toggle, and a history log.",
     stack: ["HTML", "CSS", "Vanilla JS"],
     links: [
-      { label: "Code", icon: "code", href: "https://github.com/HyeonjunSon/Side_projects/tree/main/Timer" },
+      { label: "Code", href: "https://github.com/HyeonjunSon/Side_projects/tree/main/Timer" },
     ],
   },
   {
     title: "Calculator",
     icon: "calculate",
-    description:
-      "Clean calculator with basic operations, history list, keyboard support, and one-click clipboard share.",
-    image: `${BASE}/images/image3.jpg`,
+    description: "Calculator with history, keyboard support, and clipboard share.",
     stack: ["HTML", "CSS", "Vanilla JS"],
     links: [
-      { label: "Code", icon: "code", href: "https://github.com/HyeonjunSon/Side_projects/tree/main/Calculator" },
+      { label: "Code", href: "https://github.com/HyeonjunSon/Side_projects/tree/main/Calculator" },
     ],
   },
 ];
@@ -146,9 +143,71 @@ function ImageCarousel({ images, alt }) {
   );
 }
 
-export default function Projects() {
-  const [featured, ...rest] = projectData;
+function FeatureCard({ project: p, label, reverse }) {
+  return (
+    <div className={`glass-card group rounded-xl overflow-hidden flex flex-col ${reverse ? "md:flex-row-reverse" : "md:flex-row"}`}>
+      <div className="md:w-2/5 relative flex items-center justify-center p-6 md:p-8 bg-gradient-to-br from-surface-container-high to-surface-container-lowest">
+        {p.gallery ? (
+          <ImageCarousel images={p.gallery} alt={p.title} />
+        ) : (
+          <img
+            src={p.image}
+            alt={p.title}
+            loading="lazy"
+            className="max-h-[320px] md:max-h-[440px] w-auto object-contain rounded-xl shadow-2xl ring-1 ring-white/10 transition-transform duration-700 group-hover:scale-[1.02]"
+          />
+        )}
+        {p.badge && (
+          <span className="absolute top-4 left-4 inline-flex items-center gap-1 font-label-caps text-label-caps uppercase text-secondary bg-surface/70 backdrop-blur px-3 py-1 rounded-full border border-secondary/30">
+            <span className="h-1.5 w-1.5 rounded-full bg-secondary animate-pulse" />
+            {p.badge}
+          </span>
+        )}
+      </div>
+      <div className="md:w-3/5 p-stack-md md:p-stack-lg flex flex-col justify-center">
+        <span className="font-label-caps text-label-caps text-secondary uppercase tracking-widest mb-2">
+          {label}
+        </span>
+        <h2 className="font-headline-md text-headline-md md:text-display-lg-mobile text-on-surface mb-3">
+          {p.title}
+        </h2>
+        <p className="text-on-surface-variant font-body-md md:text-body-lg mb-6 max-w-xl">
+          {p.description}
+        </p>
+        <div className="flex flex-wrap gap-2 mb-8">
+          {p.stack.map((t) => (
+            <span
+              key={t}
+              className="font-label-caps text-label-caps px-3 py-1 bg-secondary/10 text-secondary rounded-full border border-secondary/20"
+            >
+              {t}
+            </span>
+          ))}
+        </div>
+        <div className="flex flex-wrap items-center gap-3">
+          {p.links.map((l, idx) => (
+            <a
+              key={l.label}
+              href={l.href}
+              target="_blank"
+              rel="noreferrer"
+              className={
+                idx === 0
+                  ? "flex items-center justify-center gap-1.5 px-6 py-3 bg-secondary text-on-secondary rounded-lg font-label-caps text-label-caps font-bold transition-all hover:shadow-[0_0_15px_rgba(93,230,255,0.4)]"
+                  : "flex items-center gap-1.5 px-6 py-3 border border-outline-variant text-on-surface hover:border-secondary hover:text-secondary rounded-lg transition-colors font-label-caps text-label-caps"
+              }
+            >
+              {l.icon && <span className="material-symbols-outlined text-base">{l.icon}</span>}
+              {l.label.toUpperCase()}
+            </a>
+          ))}
+        </div>
+      </div>
+    </div>
+  );
+}
 
+export default function Projects() {
   return (
     <main className="relative min-h-screen pt-16 pb-stack-lg bg-grid-pattern">
       {/* Hero */}
@@ -161,153 +220,53 @@ export default function Projects() {
             Curated Projects
           </h1>
           <p className="font-body-lg text-body-lg text-on-surface-variant max-w-2xl">
-            Selected work highlighting UI clarity, pragmatic state handling, and
-            small details that improve day-to-day usability.
+            Shipped products with real users, measured performance work, and
+            tests that run on every push.
           </p>
         </div>
       </header>
 
-      {/* Featured project */}
-      <section className="max-w-container-max mx-auto px-gutter mb-gutter">
-        <div className="glass-card group rounded-xl overflow-hidden flex flex-col md:flex-row">
-          <div className="md:w-2/5 relative flex items-center justify-center p-6 md:p-8 bg-gradient-to-br from-surface-container-high to-surface-container-lowest">
-            <ImageCarousel images={featured.gallery} alt={featured.title} />
-            {featured.badge && (
-              <span className="absolute top-4 left-4 inline-flex items-center gap-1 font-label-caps text-label-caps uppercase text-secondary bg-surface/70 backdrop-blur px-3 py-1 rounded-full border border-secondary/30">
-                <span className="h-1.5 w-1.5 rounded-full bg-secondary animate-pulse" />
-                {featured.badge}
-              </span>
-            )}
-          </div>
-          <div className="md:w-3/5 p-stack-md md:p-stack-lg flex flex-col justify-center">
-            <span className="font-label-caps text-label-caps text-secondary uppercase tracking-widest mb-2">
-              Featured Project
-            </span>
-            <h2 className="font-headline-md text-headline-md md:text-display-lg-mobile text-on-surface mb-3">
-              {featured.title}
-            </h2>
-            <p className="text-on-surface-variant font-body-md md:text-body-lg mb-6 max-w-xl">
-              {featured.description}
-            </p>
-            <div className="flex flex-wrap gap-2 mb-8">
-              {featured.stack.map((t) => (
-                <span
-                  key={t}
-                  className="font-label-caps text-label-caps px-3 py-1 bg-secondary/10 text-secondary rounded-full border border-secondary/20"
-                >
-                  {t}
-                </span>
-              ))}
-            </div>
-            <div className="flex flex-wrap items-center gap-3">
-              {featured.links.map((l, idx) => (
-                <a
-                  key={l.label}
-                  href={l.href}
-                  target="_blank"
-                  rel="noreferrer"
-                  className={
-                    idx === 0
-                      ? "flex items-center justify-center gap-1.5 px-6 py-3 bg-secondary text-on-secondary rounded-lg font-label-caps text-label-caps font-bold transition-all hover:shadow-[0_0_15px_rgba(93,230,255,0.4)]"
-                      : "flex items-center gap-1.5 px-6 py-3 border border-outline-variant text-on-surface hover:border-secondary hover:text-secondary rounded-lg transition-colors font-label-caps text-label-caps"
-                  }
-                >
-                  {l.icon && (
-                    <span className="material-symbols-outlined text-base">{l.icon}</span>
-                  )}
-                  {l.label.toUpperCase()}
-                </a>
-              ))}
-            </div>
-          </div>
-        </div>
+      {/* Main projects */}
+      <section className="max-w-container-max mx-auto px-gutter flex flex-col gap-gutter">
+        {projectData.map((p, n) => (
+          <FeatureCard key={p.title} project={p} label={n === 0 ? "Featured Project" : "Full-Stack Project"} reverse={n % 2 === 1} />
+        ))}
       </section>
 
-      {/* Grid */}
-      <section className="max-w-container-max mx-auto px-gutter">
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-gutter">
-          {rest.map((p) => (
-            <div
-              key={p.title}
-              className="glass-card group flex flex-col rounded-xl overflow-hidden hover:-translate-y-1"
-            >
-              <div className="h-56 bg-surface-container overflow-hidden relative">
-                {p.image ? (
-                  <img
-                    src={p.image}
-                    alt={p.title}
-                    loading="lazy"
-                    className={`w-full h-full transition-transform duration-700 group-hover:scale-105 ${
-                      p.imageClass || "object-cover object-center"
-                    }`}
-                  />
-                ) : (
-                  <div className="w-full h-full flex items-center justify-center bg-gradient-to-br from-surface-container-high to-surface-container-lowest">
-                    <span
-                      className="material-symbols-outlined text-secondary/70 text-7xl transition-transform duration-700 group-hover:scale-110"
-                      style={{ fontVariationSettings: "'FILL' 1" }}
-                    >
-                      {p.icon}
-                    </span>
-                  </div>
-                )}
-                <div className="absolute inset-0 bg-gradient-to-t from-surface-dim via-transparent to-transparent opacity-60" />
-                {p.badge && (
-                  <span className="absolute top-3 left-3 inline-flex items-center gap-1 font-label-caps text-label-caps uppercase text-secondary bg-surface/70 backdrop-blur px-3 py-1 rounded-full border border-secondary/30">
-                    <span className="h-1.5 w-1.5 rounded-full bg-secondary animate-pulse" />
-                    {p.badge}
-                  </span>
-                )}
+      {/* Learning projects */}
+      <section className="max-w-container-max mx-auto px-gutter mt-stack-lg">
+        <p className="font-label-caps text-label-caps text-secondary uppercase tracking-widest mb-2">
+          Earlier Work
+        </p>
+        <h2 className="font-headline-md text-headline-md text-on-surface mb-stack-sm">
+          Learning Projects
+        </h2>
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-gutter">
+          {learningProjects.map((p) => (
+            <div key={p.title} className="glass-card rounded-xl p-6 flex flex-col">
+              <div className="flex items-center gap-2 mb-2">
+                <span className="material-symbols-outlined text-secondary text-xl">{p.icon}</span>
+                <h3 className="font-body-lg text-body-lg font-bold text-on-surface">{p.title}</h3>
               </div>
-
-              <div className="p-stack-md flex flex-col flex-grow">
-                <div className="flex justify-between items-start mb-2">
-                  <h3 className="font-headline-md text-headline-md text-on-surface">
-                    {p.title}
-                  </h3>
-                  <span
-                    className="material-symbols-outlined text-secondary"
-                    style={{ fontVariationSettings: "'FILL' 1" }}
+              <p className="text-on-surface-variant font-body-md text-sm mb-4 flex-grow">
+                {p.description}
+              </p>
+              <p className="font-code-sm text-code-sm text-on-surface-variant/80 mb-4">
+                {p.stack.join(" · ")}
+              </p>
+              <div className="flex flex-wrap gap-3">
+                {p.links.map((l) => (
+                  <a
+                    key={l.label}
+                    href={l.href}
+                    target="_blank"
+                    rel="noreferrer"
+                    className="inline-flex items-center gap-1 text-secondary font-label-caps text-label-caps hover:gap-2 transition-all"
                   >
-                    {p.icon}
-                  </span>
-                </div>
-
-                <p className="text-on-surface-variant font-body-md mb-6 flex-grow">
-                  {p.description}
-                </p>
-
-                <div className="flex flex-wrap gap-2 mb-6">
-                  {p.stack.map((t) => (
-                    <span
-                      key={t}
-                      className="font-label-caps text-label-caps px-3 py-1 bg-secondary/10 text-secondary rounded-full border border-secondary/20"
-                    >
-                      {t}
-                    </span>
-                  ))}
-                </div>
-
-                <div className="flex flex-wrap items-stretch gap-2">
-                  {p.links.map((l, idx) => (
-                    <a
-                      key={l.label}
-                      href={l.href}
-                      target="_blank"
-                      rel="noreferrer"
-                      className={`flex-1 basis-[110px] min-w-[110px] flex items-center justify-center gap-1.5 px-3 py-3 rounded-lg font-label-caps text-label-caps transition-all ${
-                        idx === 0
-                          ? "bg-secondary text-on-secondary font-bold hover:shadow-[0_0_15px_rgba(93,230,255,0.4)]"
-                          : "border border-outline-variant text-on-surface hover:border-secondary hover:text-secondary"
-                      }`}
-                    >
-                      {l.icon && (
-                        <span className="material-symbols-outlined text-base">{l.icon}</span>
-                      )}
-                      {l.label.toUpperCase()}
-                    </a>
-                  ))}
-                </div>
+                    <span className="material-symbols-outlined text-base">code</span>
+                    {l.label.toUpperCase()}
+                  </a>
+                ))}
               </div>
             </div>
           ))}
