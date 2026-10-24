@@ -30,7 +30,8 @@ const projectData = [
     icon: "pets",
     description:
       "Neighbourhood dog-owner community: nearby dogs sorted by real distance (MongoDB geospatial), mutual-like matching, map-based walk planning, and real-time chat. Stripe subscriptions via idempotent, signature-verified webhooks; 39 API tests plus Playwright E2E.",
-    image: `${BASE}/images/image5.jpg`,
+    gallery: [1, 2, 3].map((n) => `${BASE}/images/offleash${n}.jpg`),
+    wide: true,
     stack: ["Next.js", "TypeScript", "Express", "MongoDB", "PostgreSQL", "Stripe"],
     links: [
       { label: "Live Site", icon: "language", href: "https://pet-app-frontend-fawn.vercel.app" },
@@ -80,7 +81,7 @@ const learningProjects = [
   },
 ];
 
-function ImageCarousel({ images, alt }) {
+function ImageCarousel({ images, alt, wide }) {
   const [i, setI] = useState(0);
   const [paused, setPaused] = useState(false);
   const n = images.length;
@@ -98,14 +99,14 @@ function ImageCarousel({ images, alt }) {
       onMouseEnter={() => setPaused(true)}
       onMouseLeave={() => setPaused(false)}
     >
-      <div className="relative h-[320px] md:h-[440px] flex items-center justify-center">
+      <div className={`relative flex items-center justify-center ${wide ? "aspect-[16/10]" : "h-[320px] md:h-[440px]"}`}>
         {images.map((src, idx) => (
           <img
             key={src}
             src={src}
             alt={`${alt} screenshot ${idx + 1}`}
             loading={idx === 0 ? "eager" : "lazy"}
-            className={`absolute max-h-full w-auto object-contain rounded-xl shadow-2xl ring-1 ring-white/10 transition-opacity duration-700 ${
+            className={`absolute max-h-full max-w-full w-auto object-contain rounded-xl shadow-2xl ring-1 ring-white/10 transition-opacity duration-700 ${
               idx === i ? "opacity-100" : "opacity-0 pointer-events-none"
             }`}
           />
@@ -148,7 +149,7 @@ function FeatureCard({ project: p, label, reverse }) {
     <div className={`glass-card group rounded-xl overflow-hidden flex flex-col ${reverse ? "md:flex-row-reverse" : "md:flex-row"}`}>
       <div className="md:w-2/5 relative flex items-center justify-center p-6 md:p-8 bg-gradient-to-br from-surface-container-high to-surface-container-lowest">
         {p.gallery ? (
-          <ImageCarousel images={p.gallery} alt={p.title} />
+          <ImageCarousel images={p.gallery} alt={p.title} wide={p.wide} />
         ) : (
           <img
             src={p.image}
